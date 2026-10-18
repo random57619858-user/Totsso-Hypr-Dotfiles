@@ -130,12 +130,25 @@ ok "Font installed."
 info "Optional components..."
 
 if confirm "Install printer support?"; then
-    sudo zypper install -y cups cups-client avahi \
-        gutenprint system-config-printer
+    sudo zypper install -y cups cups-client avahi cups-filters nss-mdns system-config-printer
+
+    if command -v nss-mdns-config >/dev/null 2>&1; then
+        sudo nss-mdns-config --enable
+    else
+        warn "nss-mdns-config not found; mDNS resolution may not be enabled."
+    fi
+
+    ACTIVE_ZONE=$(sudo firewall-cmd --get-default-zone)
+    sudo firewall-cmd --zone="$ACTIVE_ZONE" --add-service=mdns --permanent
+    sudo firewall-cmd --zone="$ACTIVE_ZONE" --add-service=ipps --permanent
+    sudo firewall-cmd --zone="$ACTIVE_ZONE" --add-service=ipps-client --permanent
+    sudo firewall-cmd --reload
+
     sudo systemctl enable --now cups avahi-daemon
     sudo usermod -aG lp "$USER" 2>/dev/null || true
     ok "Printer support ready."
 fi
+
 
 if confirm "Install Flatpak + Flathub?"; then
     sudo zypper install -y flatpak
