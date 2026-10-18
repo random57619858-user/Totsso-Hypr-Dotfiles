@@ -96,7 +96,7 @@ EOF
 
 info "Updating and installing base packages..."
 sudo apt update
-sudo apt full-upgrade -y \
+sudo apt full-upgrade -y 
 sudo apt install -y \
     hyprland firefox nautilus kitty cava rofi hyprpaper playerctl \
     brightnessctl waybar wl-clipboard grim slurp nwg-look \
