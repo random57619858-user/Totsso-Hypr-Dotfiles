@@ -11,7 +11,7 @@ BLUE="${ESC}[34m"
 RED="${ESC}[31m"
 
 banner() {
-    clear
+    clear 2>/dev/null || true
     echo -e "${CYAN}${BOLD}"
     echo "┌──────────────────────────────────────────────────┐"
     echo "│         DEBIAN HYPRLAND DOTFILES INSTALLER       │"
@@ -48,6 +48,11 @@ mktemp_tracked() {
 }
 
 banner
+
+if [ "$(id -u)" -eq 0 ]; then
+    fail "Do not run this script as root. Use your normal user (sudo is requested internally)."
+    exit 1
+fi
 
 if [ -f /etc/os-release ]; then
     . /etc/os-release
@@ -96,7 +101,7 @@ EOF
 
 info "Updating and installing base packages..."
 sudo apt update
-sudo apt full-upgrade -y 
+sudo apt full-upgrade -y
 sudo apt install -y \
     hyprland firefox nautilus kitty cava rofi hyprpaper playerctl \
     brightnessctl waybar wl-clipboard grim slurp nwg-look \
@@ -104,9 +109,14 @@ sudo apt install -y \
     xdg-user-dirs git unzip build-essential curl gdm3 wget \
     fonts-noto-color-emoji fonts-nerd-symbols fonts-jetbrains-mono
 
-info "Enabling GDM..."
-sudo systemctl enable gdm3
-ok "GDM enabled."
+info "Configuring display manager..."
+if systemctl is-enabled sddm 2>/dev/null || systemctl is-enabled lightdm 2>/dev/null; then
+    warn "Another display manager is already enabled. GDM will be installed but not enabled automatically."
+else
+    info "Enabling GDM..."
+    sudo systemctl enable gdm3
+    ok "GDM enabled."
+fi
 
 info "Enabling PipeWire services..."
 if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
@@ -150,32 +160,18 @@ if confirm "Install Flatpak + Flathub?"; then
     ok "Flatpak and Flathub configured."
 fi
 
-if confirm "Install extra apps (Steam, OnlyOffice, Discord)?"; then
-    TMP_APPS="$(mktemp_tracked)"
-
-    info "Steam..."
-    sudo dpkg --add-architecture i386
-    sudo apt update
-    wget -q -O "$TMP_APPS/steam.deb" \
-        "https://repo.steampowered.com/steam/archive/precise/steam_latest.deb"
-    sudo apt install -y "$TMP_APPS/steam.deb" || sudo apt --fix-broken install -y
-
-    info "OnlyOffice..."
-    wget -q -O "$TMP_APPS/onlyoffice.deb" \
-        "https://download.onlyoffice.com/install/desktop/editors/linux/onlyoffice-desktopeditors_amd64.deb"
-    sudo apt install -y "$TMP_APPS/onlyoffice.deb"
-
-    info "Discord..."
-    if ! wget -q -O "$TMP_APPS/discord.deb" \
-        "https://discord.com/api/download?platform=linux&format=deb"; then
-        warn "Could not download Discord. Install it manually if you want."
-    elif ! file "$TMP_APPS/discord.deb" | grep -qi 'debian\|archive'; then
-        warn "Discord download did not return a .deb file. Skipping install."
-    else
-        sudo apt install -y "$TMP_APPS/discord.deb"
-    fi
-
-    ok "Extra apps installed."
+if confirm "Install extra apps via Flatpak (Steam, OnlyOffice, Discord, VSCodium, OBS Studio)?"; then
+    for app in \
+        com.valvesoftware.Steam \
+        com.discordapp.Discord \
+        org.onlyoffice.desktopeditors \
+        com.vscodium.codium \
+        com.obsproject.Studio
+    do
+        info "Installing $app..."
+        flatpak install -y --noninteractive flathub "$app"
+    done
+    ok "Extra apps installed via Flatpak."
 fi
 
 info "Setting up user directories..."
@@ -194,15 +190,17 @@ fi
 
 info "Installing Fluent icon theme..."
 TMP_ICONS="$(mktemp_tracked)"
-
-git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
-    "$TMP_ICONS/Fluent-icon-theme"
-( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
-  ./install.sh -d "$HOME/.local/share/icons" )
-ok "Icons installed."
+if git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
+        "$TMP_ICONS/Fluent-icon-theme"; then
+    ( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
+      ./install.sh -d "$HOME/.local/share/icons" )
+    ok "Icons installed."
+else
+    warn "Failed to clone Fluent-icon-theme; skipping."
+fi
 
 info "Applying GTK settings..."
-mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0" "$HOME/.config/nwg-look"
+mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0"
 
 GTK_SETTINGS='[Settings]
 gtk-application-prefer-dark-theme=1
@@ -212,14 +210,6 @@ gtk-font-name=Sans 10'
 
 printf '%s\n' "$GTK_SETTINGS" > "$HOME/.config/gtk-3.0/settings.ini"
 printf '%s\n' "$GTK_SETTINGS" > "$HOME/.config/gtk-4.0/settings.ini"
-
-cat > "$HOME/.config/nwg-look/config" <<'EOF'
-[General]
-icon_theme=Fluent-dark
-gtk_theme=Adwaita-dark
-cursor_theme=Adwaita
-font=Sans 10
-EOF
 
 if command -v gsettings &> /dev/null && [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
@@ -234,10 +224,12 @@ info "Deploying dotfiles..."
 deploy() {
     local src="$1" dest="$2" name="$3"
 
-    if [ -e "$dest" ]; then
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
         if confirm "Back up your existing $name config?"; then
             mkdir -p "$BACKUP_ROOT/$name"
-            if [ -f "$dest" ]; then
+            if [ -L "$dest" ]; then
+                cp -Pf "$dest" "$BACKUP_ROOT/$name/"
+            elif [ -f "$dest" ]; then
                 cp -f "$dest" "$BACKUP_ROOT/$name/"
             else
                 cp -rf "$dest/." "$BACKUP_ROOT/$name/"
@@ -249,6 +241,10 @@ deploy() {
     if [ ! -e "$src" ]; then
         warn "Source not found: $src (skipping $name)"
         return 0
+    fi
+
+    if [ -L "$dest" ]; then
+        rm -f "$dest"
     fi
 
     if [ -f "$src" ]; then
@@ -311,9 +307,16 @@ else
 fi
 
 info "Fixing script permissions..."
-find "$HOME/.config" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
-find "$DOTFILES_DIR" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
+for d in hypr waybar rofi wlogout kitty cava; do
+    if [ -d "$HOME/.config/$d" ]; then
+        find "$HOME/.config/$d" -type f -name "*.sh" \
+            -exec chmod +x {} + 2>/dev/null || true
+    fi
+done
+find "$DOTFILES_DIR" -maxdepth 2 -type f -name "*.sh" \
+    -exec chmod +x {} + 2>/dev/null || true
 
 echo -e "\n${GREEN}${BOLD}┌──────────────────────────────────────────────────┐"
 echo "│              All done! Reboot when ready :)        │"
 echo "└──────────────────────────────────────────────────┘${RESET}\n"
+echo -e "${CYAN}Backups saved to: ${BOLD}$BACKUP_ROOT${RESET}\n"
