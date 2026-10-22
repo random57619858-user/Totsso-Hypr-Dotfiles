@@ -11,7 +11,7 @@ BLUE="${ESC}[34m"
 RED="${ESC}[31m"
 
 banner() {
-    clear
+    clear 2>/dev/null || true
     echo -e "${CYAN}${BOLD}"
     echo "┌──────────────────────────────────────────────────┐"
     echo "│         SOLUS HYPRLAND DOTFILES INSTALLER        │"
@@ -49,6 +49,11 @@ mktemp_tracked() {
 
 banner
 
+if [ "$(id -u)" -eq 0 ]; then
+    fail "Do not run this script as root. Use your normal user (sudo is requested internally)."
+    exit 1
+fi
+
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     if [ "${ID:-}" != "solus" ]; then
@@ -84,8 +89,8 @@ info "Installing base packages..."
 sudo eopkg install -y \
     firefox nautilus kitty cava rofi hyprpaper playerctl \
     light waybar wl-clipboard grim slurp \
-    zenity wlogout xdg-desktop-portal-hyprland hyprpolkitagent \
-    hypridle hyprlock \
+    zenity wlogout xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland \
+    hyprpolkitagent hypridle hyprlock \
     xdg-user-dirs git unzip curl wget
 
 info "Installing development tools..."
@@ -110,8 +115,10 @@ else
     ok "cliphist installed to /usr/local/bin."
 fi
 
-
-if confirm "Install and enable GDM as display manager?"; then
+info "Configuring display manager..."
+if systemctl is-enabled lightdm 2>/dev/null || systemctl is-enabled sddm 2>/dev/null; then
+    warn "Another display manager is already enabled. GDM will not be enabled automatically."
+elif confirm "Install and enable GDM as display manager?"; then
     info "Installing GDM..."
     sudo eopkg install -y gdm
     sudo systemctl enable gdm
@@ -122,12 +129,12 @@ fi
 
 info "Installing JetBrainsMono Nerd Font..."
 FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
-if [ -d "$FONT_DIR" ] && fc-list | grep -qi "JetBrainsMono"; then
+if [ -d "$FONT_DIR" ] && command -v fc-list >/dev/null 2>&1 \
+   && fc-list | grep -qi "JetBrainsMono"; then
     ok "JetBrainsMono Nerd Font already installed."
 else
     mkdir -p "$HOME/.local/share/fonts"
     FONT_TEMP="$(mktemp_tracked)"
-
     curl -fsSL -o "$FONT_TEMP/JetBrainsMono.zip" \
         https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
     unzip -oq "$FONT_TEMP/JetBrainsMono.zip" -d "$FONT_DIR"
@@ -152,21 +159,16 @@ if confirm "Install Flatpak + Flathub?"; then
 fi
 
 if confirm "Install extra apps via Flatpak (Steam, Discord, OnlyOffice, VSCodium, OBS Studio)?"; then
-    info "Steam..."
-    flatpak install -y flathub com.valvesoftware.Steam
-
-    info "Discord..."
-    flatpak install -y flathub com.discordapp.Discord
-
-    info "OnlyOffice..."
-    flatpak install -y flathub org.onlyoffice.desktopeditors
-
-    info "VSCodium..."
-    flatpak install -y flathub com.vscodium.codium
-
-    info "OBS Studio..."
-    flatpak install -y flathub com.obsproject.Studio
-
+    for app in \
+        com.valvesoftware.Steam \
+        com.discordapp.Discord \
+        org.onlyoffice.desktopeditors \
+        com.vscodium.codium \
+        com.obsproject.Studio
+    do
+        info "Installing $app..."
+        flatpak install -y --noninteractive flathub "$app"
+    done
     ok "Extra apps installed via Flatpak."
 fi
 
@@ -186,12 +188,14 @@ fi
 
 info "Installing Fluent icon theme..."
 TMP_ICONS="$(mktemp_tracked)"
-
-git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
-    "$TMP_ICONS/Fluent-icon-theme"
-( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
-  ./install.sh -d "$HOME/.local/share/icons" )
-ok "Icons installed."
+if git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
+        "$TMP_ICONS/Fluent-icon-theme"; then
+    ( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
+      ./install.sh -d "$HOME/.local/share/icons" )
+    ok "Icons installed."
+else
+    warn "Failed to clone Fluent-icon-theme; skipping."
+fi
 
 info "Applying GTK settings..."
 mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0"
@@ -218,10 +222,12 @@ info "Deploying dotfiles..."
 deploy() {
     local src="$1" dest="$2" name="$3"
 
-    if [ -e "$dest" ]; then
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
         if confirm "Back up your existing $name config?"; then
             mkdir -p "$BACKUP_ROOT/$name"
-            if [ -f "$dest" ]; then
+            if [ -L "$dest" ]; then
+                cp -Pf "$dest" "$BACKUP_ROOT/$name/"
+            elif [ -f "$dest" ]; then
                 cp -f "$dest" "$BACKUP_ROOT/$name/"
             else
                 cp -rf "$dest/." "$BACKUP_ROOT/$name/"
@@ -233,6 +239,10 @@ deploy() {
     if [ ! -e "$src" ]; then
         warn "Source not found: $src (skipping $name)"
         return 0
+    fi
+
+    if [ -L "$dest" ]; then
+        rm -f "$dest"
     fi
 
     if [ -f "$src" ]; then
@@ -295,9 +305,16 @@ else
 fi
 
 info "Fixing script permissions..."
-find "$HOME/.config" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
-find "$DOTFILES_DIR" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
+for d in hypr waybar rofi wlogout kitty cava; do
+    if [ -d "$HOME/.config/$d" ]; then
+        find "$HOME/.config/$d" -type f -name "*.sh" \
+            -exec chmod +x {} + 2>/dev/null || true
+    fi
+done
+find "$DOTFILES_DIR" -maxdepth 2 -type f -name "*.sh" \
+    -exec chmod +x {} + 2>/dev/null || true
 
 echo -e "\n${GREEN}${BOLD}┌──────────────────────────────────────────────────┐"
 echo "│              All done! Reboot when ready :)        │"
 echo "└──────────────────────────────────────────────────┘${RESET}\n"
+echo -e "${CYAN}Backups saved to: ${BOLD}$BACKUP_ROOT${RESET}\n"
