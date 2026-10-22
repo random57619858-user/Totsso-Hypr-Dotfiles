@@ -11,7 +11,7 @@ BLUE="${ESC}[34m"
 RED="${ESC}[31m"
 
 banner() {
-    clear
+    clear 2>/dev/null || true
     echo -e "${CYAN}${BOLD}"
     echo "┌──────────────────────────────────────────────────┐"
     echo "│       OPENSUSE HYPRLAND DOTFILES INSTALLER       │"
@@ -53,6 +53,11 @@ mktemp_tracked() {
 
 banner
 
+if [ "$(id -u)" -eq 0 ]; then
+    fail "Do not run this script as root. Use your normal user (sudo is requested internally)."
+    exit 1
+fi
+
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     if [ "${ID:-}" != "opensuse-tumbleweed" ] && [[ "${ID_LIKE:-}" != *"opensuse"* ]]; then
@@ -84,23 +89,26 @@ sudo zypper refresh
 ok "Repositories refreshed."
 
 info "Installing base packages..."
-
 sudo zypper install -y \
-    hyprland kitty nautilus cava rofi hyprpaper playerctl \
+    hyprland kitty nautilus cava rofi-wayland hyprpaper playerctl \
     brightnessctl waybar wl-clipboard grim slurp nwg-look \
-    zenity wlogout xdg-desktop-portal-hyprland \
+    zenity wlogout xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-hyprland \
     cliphist wireplumber xdg-user-dirs git unzip wget \
-    hyprpolkitagent hypridle hyprlock 
+    hyprpolkitagent hypridle hyprlock
 
 ok "Base packages installed."
 
-info "Setting up display manager (GDM)..."
-sudo zypper install -y gdm
-sudo update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/gdm 2>/dev/null \
-    || sudo update-alternatives --set default-displaymanager /usr/sbin/gdm 2>/dev/null \
-    || warn "Could not set GDM as default. Run 'sudo update-alternatives --config default-displaymanager' manually."
-sudo systemctl enable gdm
-ok "GDM configured."
+info "Configuring display manager (GDM)..."
+if systemctl is-enabled sddm 2>/dev/null || systemctl is-enabled lightdm 2>/dev/null; then
+    warn "Another display manager is already enabled. GDM will be installed but not enabled automatically."
+else
+    sudo zypper install -y gdm
+    sudo update-alternatives --set default-displaymanager /usr/lib/X11/displaymanagers/gdm 2>/dev/null \
+        || sudo update-alternatives --set default-displaymanager /usr/sbin/gdm 2>/dev/null \
+        || warn "Could not set GDM as default. Run 'sudo update-alternatives --config default-displaymanager' manually."
+    sudo systemctl enable gdm
+    ok "GDM configured."
+fi
 
 info "Checking PipeWire services (Tumbleweed ships them by default)..."
 if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
@@ -149,33 +157,25 @@ if confirm "Install printer support?"; then
     ok "Printer support ready."
 fi
 
-
 if confirm "Install Flatpak + Flathub?"; then
     sudo zypper install -y flatpak
-    flatpak remote-add  --user --if-not-exists flathub \
+    flatpak remote-add --user --if-not-exists flathub \
         https://dl.flathub.org/repo/flathub.flatpakrepo
     ok "Flatpak and Flathub configured."
 fi
 
 if confirm "Install extra apps via Flatpak (Steam, Discord, OnlyOffice, VSCodium, OBS Studio, Brave)?"; then
-    info "Steam..."
-    flatpak install -y --user flathub com.valvesoftware.Steam
-
-    info "Discord..."
-    flatpak install -y --user flathub com.discordapp.Discord
-
-    info "OnlyOffice..."
-    flatpak install -y --user flathub org.onlyoffice.desktopeditors
-
-    info "VSCodium..."
-    flatpak install -y --user flathub com.vscodium.codium
-
-    info "OBS Studio..."
-    flatpak install -y --user flathub com.obsproject.Studio
-
-    info "Brave..."
-    flatpak install -y --user flathub com.brave.Browser
-
+    for app in \
+        com.valvesoftware.Steam \
+        com.discordapp.Discord \
+        org.onlyoffice.desktopeditors \
+        com.vscodium.codium \
+        com.obsproject.Studio \
+        com.brave.Browser
+    do
+        info "Installing $app..."
+        flatpak install -y --noninteractive --user flathub "$app"
+    done
     ok "Extra apps installed via Flatpak."
 fi
 
@@ -195,15 +195,17 @@ fi
 
 info "Installing Fluent icon theme..."
 TMP_ICONS="$(mktemp_tracked)"
-
-git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
-    "$TMP_ICONS/Fluent-icon-theme"
-( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
-  ./install.sh -d "$HOME/.local/share/icons" )
-ok "Icons installed."
+if git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
+        "$TMP_ICONS/Fluent-icon-theme"; then
+    ( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
+      ./install.sh -d "$HOME/.local/share/icons" )
+    ok "Icons installed."
+else
+    warn "Failed to clone Fluent-icon-theme; skipping."
+fi
 
 info "Applying GTK settings..."
-mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0" "$HOME/.config/nwg-look"
+mkdir -p "$HOME/.config/gtk-3.0" "$HOME/.config/gtk-4.0"
 
 GTK_SETTINGS='[Settings]
 gtk-application-prefer-dark-theme=1
@@ -213,14 +215,6 @@ gtk-font-name=Sans 10'
 
 printf '%s\n' "$GTK_SETTINGS" > "$HOME/.config/gtk-3.0/settings.ini"
 printf '%s\n' "$GTK_SETTINGS" > "$HOME/.config/gtk-4.0/settings.ini"
-
-cat > "$HOME/.config/nwg-look/config" <<'EOF'
-[General]
-icon_theme=Fluent-dark
-gtk_theme=Adwaita-dark
-cursor_theme=Adwaita
-font=Sans 10
-EOF
 
 if command -v gsettings &> /dev/null && [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
     gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' || true
@@ -235,10 +229,12 @@ info "Deploying dotfiles..."
 deploy() {
     local src="$1" dest="$2" name="$3"
 
-    if [ -e "$dest" ]; then
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
         if confirm "Back up your existing $name config?"; then
             mkdir -p "$BACKUP_ROOT/$name"
-            if [ -f "$dest" ]; then
+            if [ -L "$dest" ]; then
+                cp -Pf "$dest" "$BACKUP_ROOT/$name/"
+            elif [ -f "$dest" ]; then
                 cp -f "$dest" "$BACKUP_ROOT/$name/"
             else
                 cp -rf "$dest/." "$BACKUP_ROOT/$name/"
@@ -250,6 +246,10 @@ deploy() {
     if [ ! -e "$src" ]; then
         warn "Source not found: $src (skipping $name)"
         return 0
+    fi
+
+    if [ -L "$dest" ]; then
+        rm -f "$dest"
     fi
 
     if [ -f "$src" ]; then
@@ -312,8 +312,16 @@ else
 fi
 
 info "Fixing script permissions..."
-find "$DOTFILES_DIR" -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
+for d in hypr waybar rofi wlogout kitty cava; do
+    if [ -d "$HOME/.config/$d" ]; then
+        find "$HOME/.config/$d" -type f -name "*.sh" \
+            -exec chmod +x {} + 2>/dev/null || true
+    fi
+done
+find "$DOTFILES_DIR" -maxdepth 2 -type f -name "*.sh" \
+    -exec chmod +x {} + 2>/dev/null || true
 
 echo -e "\n${GREEN}${BOLD}┌──────────────────────────────────────────────────┐"
 echo "│              All done! Reboot when ready :)        │"
 echo "└──────────────────────────────────────────────────┘${RESET}\n"
+echo -e "${CYAN}Backups saved to: ${BOLD}$BACKUP_ROOT${RESET}\n"
