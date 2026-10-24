@@ -124,10 +124,10 @@ else
     warn "Keeping Snap."
 fi
 
-info "Enabling universe repository..."
-sudo add-apt-repository -y universe
-ok "Universe repository enabled."
 
+info "Adding cppiber Hyprland PPA..."
+sudo add-apt-repository -y ppa:cppiber/hyprland
+ok "cppiber Hyprland PPA added."
 info "Updating repositories..."
 sudo apt update
 
@@ -139,7 +139,7 @@ ok "Brave installed."
 info "Installing base packages..."
 sudo apt install -y \
     hyprland kitty nautilus cava rofi hyprpaper playerctl \
-    brightnessctl waybar wl-clipboard grim slurp nwg-look \
+    brightnessctl waybar wl-clipboard grim slurp \
     pipewire zenity wlogout xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
     cliphist wireplumber pipewire-audio \
