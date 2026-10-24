@@ -9,112 +9,110 @@ configuration {
 }
 
 * {
-    bg-transparent:  rgba(0, 0, 0, 0);
-    bg-modulo:       #282828;
-    bg-input:        #3c3836;
-    bg-active:       #d65d0e;
+    bg-dark:        #1d2021;
+    bg-modulo:      #282828;
+    bg-input:       #3c3836;
+    bg-active:      #d65d0e;
 
-    fg-bright:       #fbf1c7;
-    fg-main:         #ebdbb2;
-    fg-dark:         #282828;
-    fg-muted:        #928374;
+    fg-bright:      #fbf1c7;
+    fg-main:        #ebdbb2;
+    fg-dark:        #282828;
+    fg-muted:       #928374;
 
-    accent-yellow:   #d79921;
-    accent-green:    #b8bb26;
-    accent-aqua:     #8ec07c;
-    border-color:    #504945;
-    border-focus:    #665c54;
+    accent-yellow:  #d79921;
+    accent-green:   #b8bb26;
+    accent-aqua:    #8ec07c;
+    border-color:   #504945;
+    border-focus:   #665c54;
 
     background-color: transparent;
     text-color:       @fg-main;
 }
 
 window {
-    transparency:       "real";
-    background-color:   @bg-transparent;
-    border:             none;
-    width:              650px;
-    padding:            12px;
-    border-radius:      10px;
+    background-color: @bg-dark;
+    border:           2px;
+    border-color:     @border-color;
+    width:            650px;
+    padding:          16px;
+    border-radius:    10px;
+    location:         center;
+    anchor:           center;
 }
 
 mainbox {
-    background-color:   @bg-transparent;
-    spacing:            12px;
-    children:           [ inputbar, listview ];
+    background-color: @bg-dark;
+    spacing:          12px;
+    children:         [ inputbar, listview ];
 }
 
 inputbar {
-    background-color:   @bg-input;
-    border:             2px;
-    border-color:       @border-color;
-    border-radius:      8px;
-    padding:            10px 16px;
-    spacing:            10px;
-    children:           [ prompt, entry ];
+    background-color: @bg-input;
+    border:           1px;
+    border-color:     @border-color;
+    border-radius:    8px;
+    padding:          10px 16px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
 }
 
 prompt {
-    background-color:   @bg-transparent;
-    text-color:         @accent-yellow;
-    vertical-align:     0.5;
+    background-color: transparent;
+    text-color:       @accent-yellow;
+    vertical-align:   0.5;
 }
 
 entry {
-    background-color:   @bg-transparent;
-    placeholder:        "Buscar...";
-    placeholder-color:  @fg-muted;
-    text-color:         @fg-bright;
-    vertical-align:     0.5;
+    background-color: transparent;
+    placeholder:      "Buscar...";
+    placeholder-color:@fg-muted;
+    text-color:       @fg-bright;
+    vertical-align:   0.5;
 }
 
 listview {
-    background-color:   @bg-transparent;
-    columns:            1;
-    lines:              5;
-    spacing:            6px;
-    cycle:              true;
-    dynamic:            true;
-    scrollbar:          false;
-    border:             none;
+    background-color: transparent;
+    columns:          1;
+    lines:            6;
+    spacing:          4px;
+    cycle:            true;
+    dynamic:          true;
+    scrollbar:        false;
+    border:           none;
 }
 
 element {
-    background-color:   @bg-modulo;
-    text-color:         @fg-main;
-    orientation:        horizontal;
-    padding:            10px 14px;
-    border:             2px;
-    border-color:       @border-color;
-    border-radius:      8px;
+    background-color: transparent;
+    text-color:       @fg-main;
+    orientation:      horizontal;
+    padding:          8px 12px;
+    border-radius:    6px;
 }
 
 element normal.normal {
-    background-color:   @bg-modulo;
-    text-color:         @fg-main;
+    background-color: transparent;
+    text-color:       @fg-main;
 }
 
 element selected.normal {
-    background-color:   @bg-active;
-    text-color:         @fg-bright;
-    border:             2px;
-    border-color:       @bg-active;
+    background-color: @bg-active;
+    text-color:       @fg-bright;
 }
 
 element alternate.normal {
-    background-color:   @bg-modulo;
-    text-color:         @fg-main;
+    background-color: transparent;
+    text-color:       @fg-main;
 }
 
 element-icon {
-    background-color:   @bg-transparent;
-    size:               20px;
-    vertical-align:     0.5;
-    margin-right:       12px;
+    background-color: transparent;
+    size:             22px;
+    vertical-align:   0.5;
+    margin-right:     12px;
 }
 
 element-text {
-    background-color:   @bg-transparent;
-    text-color:         inherit;
-    vertical-align:     0.5;
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
 }
