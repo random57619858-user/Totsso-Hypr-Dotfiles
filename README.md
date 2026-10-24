@@ -11,7 +11,7 @@ There are **five** different install scripts at the root of this repository. Pic
 | Script | Distro | Notes |
 |--------|--------|-------|
 | `debian-install.sh` | Debian | Switches `/etc/apt/sources.list` to **Debian unstable (Sid)**. Hyprland and some of its dependencies are only available there, so there's no way around it if you want a modern setup on Debian. Sid is a rolling release. Breakage happens. That's the trade-off. If you're not comfortable with that, this script isn't for you D: |
-| `ubuntu-install.sh` | Ubuntu | Installs Hyprland from the `universe` repository. Also gives you the option to completely remove Snap at the beginning. |
+| `ubuntu-install.sh` | Ubuntu | Installs Hyprland from the `cppiber` repository. Also gives you the option to completely remove Snap at the beginning. |
 | `void-install.sh` | Void Linux | Uses `xbps` and adds the [hyprland-void](https://github.com/Makrennel/hyprland-void) repository. Enables `seatd` so Hyprland can start from a TTY, and optionally sets up SDDM as display manager. |
 | `solus-install.sh` | Solus | Uses `eopkg` and works out of the box without needing to change repositories. |
 | `opensuse-tumbleweed-install.sh` | openSUSE Tumbleweed | Uses `zypper` and works out of the box. Hyprland is available in the official repos, so no extra repositories are needed. The script also takes care of a few openSUSE-specific quirks (firewall zone, `nss-mdns` setup for printer discovery, etc.). |
