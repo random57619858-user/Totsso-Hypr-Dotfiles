@@ -12,13 +12,12 @@ There are **five** different install scripts at the root of this repository. Pic
 |--------|--------|-------|
 | `debian-install.sh` | Debian | Switches `/etc/apt/sources.list` to **Debian unstable (Sid)**. Hyprland and some of its dependencies are only available there, so there's no way around it if you want a modern setup on Debian. Sid is a rolling release. Breakage happens. That's the trade-off. If you're not comfortable with that, this script isn't for you D: |
 | `ubuntu-install.sh` | Ubuntu | Installs Hyprland from the `cppiber` repository. Also gives you the option to completely remove Snap at the beginning. |
-| `void-install.sh` | Void Linux | Uses `xbps` and adds the [hyprland-void](https://github.com/Makrennel/hyprland-void) repository. Enables `seatd` so Hyprland can start from a TTY, and optionally sets up SDDM as display manager. |
 | `solus-install.sh` | Solus | Uses `eopkg` and works out of the box without needing to change repositories. |
 | `opensuse-tumbleweed-install.sh` | openSUSE Tumbleweed | Uses `zypper` and works out of the box. Hyprland is available in the official repos, so no extra repositories are needed. The script also takes care of a few openSUSE-specific quirks (firewall zone, `nss-mdns` setup for printer discovery, etc.). |
 
 ## Requirements
 
-- A **Debian**, **Ubuntu**, **Void Linux**, **Solus**, or **openSUSE Tumbleweed** installation
+- A **Debian**, **Ubuntu**, **Solus**, or **openSUSE Tumbleweed** installation
 - `git` and `sudo` installed
 - A working internet connection
 
@@ -50,18 +49,6 @@ chmod +x ubuntu-install.sh
 chmod +x debian-install.sh
 ./debian-install.sh
 ```
-
-</details>
-
-<details>
-<summary><b>Void Linux</b></summary>
-
-```bash
-chmod +x void-install.sh
-./void-install.sh
-```
-
-</details>
 
 <details>
 <summary><b>Solus</b></summary>
