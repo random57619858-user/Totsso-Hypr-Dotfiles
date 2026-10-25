@@ -131,10 +131,13 @@ ok "cppiber Hyprland PPA added."
 info "Updating repositories..."
 sudo apt update
 
-info "Installing Brave Browser (official script)..."
-sudo apt install -y curl
-curl -fsS https://dl.brave.com/install.sh | sh
-ok "Brave installed."
+info "Installing LibreWolf via extrepo..."
+sudo apt install -y extrepo
+sudo extrepo enable librewolf
+sudo extrepo update librewolf
+sudo apt update
+sudo apt install -y librewolf
+ok "LibreWolf installed."
 
 info "Installing base packages..."
 sudo apt install -y \
