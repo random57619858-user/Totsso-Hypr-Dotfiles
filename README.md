@@ -2,7 +2,7 @@
 
 A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Void Linux**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
 
-<img width="1366" height="768" alt="imagen" src="https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3" />
+<img width="1366" height="768" alt="imagen" src="[https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3](https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3)" />
 
 ## ⚠️ About the scripts
 
@@ -18,8 +18,11 @@ There are **five** different install scripts at the root of this repository. Pic
 ## Requirements
 
 - A **Debian**, **Ubuntu**, **Solus**, or **openSUSE Tumbleweed** installation
+
 - `git` and `sudo` installed
+
 - A working internet connection
+
 
 ## Installation
 
@@ -50,6 +53,8 @@ chmod +x debian-install.sh
 ./debian-install.sh
 ```
 
+</details>
+
 <details>
 <summary><b>Solus</b></summary>
 
@@ -75,30 +80,49 @@ chmod +x opensuse-tumbleweed-install.sh
 ### Core desktop
 
 - **Hyprland** — compositor
+
 - **Waybar** — status bar
+
 - **Rofi** — app launcher and wallpaper picker
+
 - **Kitty** — terminal
+
 - **Cava** — audio visualizer
+
 - **Hyprpaper** — wallpaper daemon
+
 
 ### Extra tools
 
 - **GDM** — login manager (or **SDDM** on Void Linux)
+
 - **Wlogout** — power menu
+
 - **Hypridle + Hyprlock** — idle and lock screen
+
 - **Cliphist** — clipboard history
+
 - **Grim + Slurp + wl-clipboard** — screenshots
+
 - **PipeWire + WirePlumber** — audio
+
 - **XDG Desktop Portal Hyprland** — screen sharing
+
 - **Hyprpolkitagent** — auth dialogs
+
 - **Fluent icon theme**
+
 - **JetBrainsMono Nerd Font**
+
 
 ### Optional (asked during install)
 
 - Printer support (CUPS)
+
 - Flatpak + Flathub
+
 - Steam, OnlyOffice, Discord, VSCodium, OBS Studio
+
 
 ## Keybindings
 
@@ -122,4 +146,4 @@ The script asks before overwriting anything in `~/.config/`. If you say yes, a c
 
 It's not the best dotfile, but I hope you like it :)
 
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037" />
+<img width="1366" height="768" alt="image" src="[https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037](https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037)" />
