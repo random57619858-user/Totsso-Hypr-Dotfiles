@@ -2,7 +2,7 @@
 
 A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Void Linux**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
 
-<img width="1366" height="768" alt="imagen" src="[https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3](https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3)" />
+![imagen](https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3)
 
 ## ⚠️ About the scripts
 
@@ -29,7 +29,7 @@ There are **five** different install scripts at the root of this repository. Pic
 First, clone the repository:
 
 ```bash
-git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
+git clone [https://github.com/random57619858-user/Totsso-Hypr-Dotfiles](https://github.com/random57619858-user/Totsso-Hypr-Dotfiles)
 cd Totsso-Hypr-Dotfiles
 ```
 
@@ -146,4 +146,4 @@ The script asks before overwriting anything in `~/.config/`. If you say yes, a c
 
 It's not the best dotfile, but I hope you like it :)
 
-<img width="1366" height="768" alt="image" src="[https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037](https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037)" />
+![image](https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037)
