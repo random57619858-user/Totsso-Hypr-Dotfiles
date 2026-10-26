@@ -1,6 +1,6 @@
 # Totsso-Hypr-Dotfiles
 
-A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Void Linux**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
+A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
 
 ![imagen](https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3)
 
