@@ -186,10 +186,11 @@ if confirm "Install printer support?"; then
 fi
 
 if confirm "Install Flatpak + Flathub?"; then
-    sudo apk add flatpak
+    sudo apk add flatpak || true
+    sudo rc-service polkit start 2>/dev/null || true
     flatpak remote-add --if-not-exists flathub \
-        https://dl.flathub.org/repo/flathub.flatpakrepo
-    ok "Flatpak and Flathub configured."
+        https://dl.flathub.org/repo/flathub.flatpakrepo || warn "Could not add Flathub (Polkit not ready, will retry after reboot)"
+    ok "Flatpak and Flathub configured (or will be configured after login)."
 fi
 
 if confirm "Install extra apps via Flatpak (Steam, OnlyOffice, Discord, VSCodium, OBS Studio)?"; then
