@@ -94,7 +94,7 @@ chmod +x opensuse-tumbleweed-install.sh
 
 ### Extra tools
 
-- **GDM** — login manager (or **SDDM** on Void Linux)
+- **GDM** — login manager
 
 - **Wlogout** — power menu
 
