@@ -100,6 +100,12 @@ if ! grep -q "edge" /etc/apk/repositories 2>/dev/null; then
     fi
 fi
 
+if ! grep -q "edge/testing" /etc/apk/repositories 2>/dev/null; then
+    info "Adding edge/testing repository for Hyprland dependencies..."
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" | sudo tee -a /etc/apk/repositories > /dev/null
+    ok "Edge testing repository added."
+fi
+
 sudo apk update
 
 info "Installing base packages (Hyprland + Wayland stack)..."
@@ -114,9 +120,9 @@ sudo apk add \
     zenity wlogout xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
     cliphist xdg-user-dirs git unzip build-base wget curl \
-    font-noto-emoji font-jetbrains-mono
+    font-noto-emoji font-jetbrains-mono || true
 
-ok "Base packages installed."
+ok "Base packages installed (some optional packages may have failed, check above)."
 
 info "Installing SDDM..."
 sudo apk add sddm
