@@ -7,7 +7,7 @@ A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Solus**, and **open
 
 ## ⚠️ About the scripts
 
-There are **five** different install scripts at the root of this repository. Pick the one for your system:
+There are **four** different install scripts at the root of this repository. Pick the one for your system:
 
 | Script | Distro | Notes |
 |--------|--------|-------|
