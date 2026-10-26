@@ -2,7 +2,8 @@
 
 A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
 
-![imagen](https://github.com/user-attachments/assets/68700ec4-a07a-4609-94ae-e0b3281434b3)
+<img width="1366" height="768" alt="imagen" src="https://github.com/user-attachments/assets/af45162d-e01c-4bf4-ae1d-ac44420ef289" />
+
 
 ## ⚠️ About the scripts
 
@@ -146,4 +147,10 @@ The script asks before overwriting anything in `~/.config/`. If you say yes, a c
 
 It's not the best dotfile, but I hope you like it :)
 
-![image](https://github.com/user-attachments/assets/9a6554fd-20c5-481c-9163-0b7872f84037)
+## Rofi: 
+
+<img width="760" height="380" alt="imagen" src="https://github.com/user-attachments/assets/7fb0b784-571d-45ea-a46c-1a262ae832ec" />
+
+## Waybar 
+
+<img width="1366" height="62" alt="imagen" src="https://github.com/user-attachments/assets/878e87ce-cc33-495a-a0a9-e556a3f2875e" />
