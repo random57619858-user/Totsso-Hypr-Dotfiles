@@ -1,24 +1,25 @@
 # Totsso-Hypr-Dotfiles
 
-A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
+A basic Hyprland dotfile setup for **Debian**, **Ubuntu**, **Arch Linux**, **Solus**, and **openSUSE Tumbleweed**. It sets up a minimal, gruvbox-themed desktop: compositor, bar, launcher, terminal, wallpaper and a few tools so you can log in after a reboot and just use it.
 
 <img width="1366" height="768" alt="imagen" src="https://github.com/user-attachments/assets/af45162d-e01c-4bf4-ae1d-ac44420ef289" />
 
 
 ## ⚠️ About the scripts
 
-There are **four** different install scripts at the root of this repository. Pick the one for your system:
+There are **five** different install scripts at the root of this repository. Pick the one for your system:
 
 | Script | Distro | Notes |
 |--------|--------|-------|
 | `debian-install.sh` | Debian | Switches `/etc/apt/sources.list` to **Debian unstable (Sid)**. Hyprland and some of its dependencies are only available there, so there's no way around it if you want a modern setup on Debian. Sid is a rolling release. Breakage happens. That's the trade-off. If you're not comfortable with that, this script isn't for you D: |
 | `ubuntu-install.sh` | Ubuntu | Installs Hyprland from the `cppiber` repository. Also gives you the option to completely remove Snap at the beginning. |
+| `arch-install.sh` | Arch Linux | Uses `pacman` and installs `yay` automatically to pull Hyprland dependencies and LibreWolf from the AUR. Optionally enables the `multilib` repository and configures `nss-mdns` for network printer discovery. |
 | `solus-install.sh` | Solus | Uses `eopkg` and works out of the box without needing to change repositories. |
 | `opensuse-tumbleweed-install.sh` | openSUSE Tumbleweed | Uses `zypper` and works out of the box. Hyprland is available in the official repos, so no extra repositories are needed. The script also takes care of a few openSUSE-specific quirks (firewall zone, `nss-mdns` setup for printer discovery, etc.). |
 
 ## Requirements
 
-- A **Debian**, **Ubuntu**, **Solus**, or **openSUSE Tumbleweed** installation
+- A **Debian**, **Ubuntu**, **Arch Linux**, **Solus**, or **openSUSE Tumbleweed** installation
 
 - `git` and `sudo` installed
 
@@ -52,6 +53,16 @@ chmod +x ubuntu-install.sh
 ```bash
 chmod +x debian-install.sh
 ./debian-install.sh
+```
+
+</details>
+
+<details>
+<summary><b>Arch Linux</b></summary>
+
+```bash
+chmod +x arch-install.sh
+./arch-install.sh
 ```
 
 </details>
@@ -143,7 +154,7 @@ chmod +x opensuse-tumbleweed-install.sh
 
 ## Backups
 
-The script asks before overwriting anything in `~/.config/`. If you say yes, a copy gets saved to `backup/` inside this repo. Your `sources.list` can also be backed up before it's replaced (Debian/Ubuntu only).
+The script asks before overwriting anything in `~/.config/`. If you say yes, a copy gets saved to `backup/` inside this repo. Your `sources.list` can also be backed up before it's replaced (Debian/Ubuntu only). On Arch Linux, `/etc/nsswitch.conf` is backed up before enabling mDNS for printer discovery.
 
 It's not the best dotfile, but I hope you like it :)
 
