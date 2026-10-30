@@ -30,7 +30,7 @@ There are **four** different install scripts at the root of this repository. Pic
 First, clone the repository:
 
 ```bash
-git clone [https://github.com/random57619858-user/Totsso-Hypr-Dotfiles](https://github.com/random57619858-user/Totsso-Hypr-Dotfiles)
+git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
 cd Totsso-Hypr-Dotfiles
 ```
 
