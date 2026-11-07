@@ -12,7 +12,7 @@ Este dotfile ya no es un simple tema estático de Gruvbox: ahora es un **escrito
 
 ---
 
-## ✨ Características Principales
+## Novedades (v4.5)
 
 - **Soporte de Fondos Animados:** Utiliza `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
 - **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si usas un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
