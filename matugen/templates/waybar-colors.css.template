@@ -1,0 +1,11 @@
+@define-color bg         {{colors.surface.default.hex}};
+@define-color bg_alt     {{colors.surface_container.default.hex}};
+@define-color border     {{colors.outline_variant.default.hex}};
+@define-color fg         {{colors.on_surface.default.hex}};
+@define-color fg_dim     {{colors.on_surface_variant.default.hex}};
+@define-color primary    {{colors.primary.default.hex}};
+@define-color on_primary {{colors.on_primary.default.hex}};
+@define-color secondary  {{colors.secondary.default.hex}};
+@define-color tertiary   {{colors.tertiary.default.hex}};
+@define-color error      {{colors.error.default.hex}};
+@define-color on_error   {{colors.on_error.default.hex}};

@@ -1,0 +1,21 @@
+[config]
+
+[templates.hyprland]
+input_path  = '~/.config/matugen/templates/hyprland-colors.lua.template'
+output_path = '~/.config/hypr/colors.lua'
+
+[templates.waybar]
+input_path  = '~/.config/matugen/templates/waybar-colors.css.template'
+output_path = '~/.config/waybar/colors.css'
+
+[templates.kitty]
+input_path  = '~/.config/matugen/templates/kitty-colors.conf.template'
+output_path = '~/.config/kitty/colors.conf'
+
+[templates.rofi]
+input_path  = '~/.config/matugen/templates/rofi-colors.rasi.template'
+output_path = '~/.config/rofi/colors.rasi'
+
+[templates.hyprlock]
+input_path  = '~/.config/matugen/templates/hyprlock-colors.conf.template'
+output_path = '~/.config/hypr/hyprlock-colors.conf'

@@ -1,0 +1,17 @@
+* {
+    bg-dark:        #0d0f09;
+    bg-modulo:      #1e201a;
+    bg-input:       #282b24;
+    bg-active:      #b3d089;
+
+    fg-bright:      #e2e3d8;
+    fg-main:        #e2e3d8;
+    fg-dark:        #203600;
+    fg-muted:       #c5c8b9;
+
+    accent-yellow:  #b3d089;
+    accent-green:   #a0d0cb;
+    accent-aqua:    #c0cbac;
+    border-color:   #44483d;
+    border-focus:   #8f9285;
+}

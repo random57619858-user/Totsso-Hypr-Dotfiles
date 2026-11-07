@@ -1,0 +1,105 @@
+@import "colors.rasi"
+
+configuration {
+    font: "JetBrainsMono Nerd Font Bold 10";
+    show-icons: true;
+    icon-theme: "Fluent-dark";
+    display-drun: "   ";
+    drun-display-format: "{name}";
+    disable-history: false;
+    sidebar-mode: false;
+}
+
+* {
+    background-color: @bg-dark;
+    text-color:       @fg-main;
+    background-alpha: 100%;
+}
+
+window {
+    background-color: @bg-dark;
+    border:           2px;
+    border-color:     @border-color;
+    width:            650px;
+    padding:          16px;
+    border-radius:    0; /* Cuadrado */
+    location:         center;
+    anchor:           center;
+}
+
+mainbox {
+    background-color: @bg-dark;
+    spacing:          12px;
+    children:         [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @bg-input;
+    border:           1px;
+    border-color:     @border-color;
+    border-radius:    0; /* Cuadrado */
+    padding:          10px 16px;
+    spacing:          10px;
+    children:         [ prompt, entry ];
+}
+
+prompt {
+    background-color: transparent;
+    text-color:       @accent-yellow;
+    vertical-align:   0.5;
+}
+
+entry {
+    background-color: transparent;
+    placeholder:      "Buscar...";
+    placeholder-color:@fg-muted;
+    text-color:       @fg-bright;
+    vertical-align:   0.5;
+}
+
+listview {
+    background-color: transparent;
+    columns:          1;
+    lines:            6;
+    spacing:          4px;
+    cycle:            true;
+    dynamic:          true;
+    scrollbar:        false;
+    border:           none;
+}
+
+element {
+    background-color: transparent;
+    text-color:       @fg-main;
+    orientation:      horizontal;
+    padding:          8px 12px;
+    border-radius:    0; /* Cuadrado */
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @fg-main;
+}
+
+element selected.normal {
+    background-color: @bg-active;
+    text-color:       @fg-dark;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @fg-main;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             22px;
+    vertical-align:   0.5;
+    margin-right:     12px;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}

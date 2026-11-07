@@ -1,0 +1,6 @@
+$background = rgba({{colors.surface_container_lowest.dark.hex_stripped}}ff)
+$on_surface = rgba({{colors.on_surface.dark.hex_stripped}}ff)
+$primary = rgba({{colors.primary.dark.hex_stripped}}ff)
+$tertiary = rgba({{colors.tertiary.dark.hex_stripped}}ff)
+$on_primary_container = rgba({{colors.on_primary_container.dark.hex_stripped}}ff)
+$primary_container = rgba({{colors.primary_container.dark.hex_stripped}}ff)

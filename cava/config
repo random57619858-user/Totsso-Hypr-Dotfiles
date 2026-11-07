@@ -1,0 +1,19 @@
+# ~/.config/cava/config
+
+[general]
+framerate = 30
+autosens = 1
+bars = 12
+sensitivity = 100
+
+[input]
+method = pulse
+source = auto
+
+[output]
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 7
+bar_delimiter = 59
+stereo = 0

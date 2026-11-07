@@ -1,0 +1,17 @@
+* {
+    bg-dark:        {{colors.surface_container_lowest.dark.hex}};
+    bg-modulo:      {{colors.surface_container.dark.hex}};
+    bg-input:       {{colors.surface_container_high.dark.hex}};
+    bg-active:      {{colors.primary.dark.hex}};
+
+    fg-bright:      {{colors.on_surface.dark.hex}};
+    fg-main:        {{colors.on_surface.dark.hex}};
+    fg-dark:        {{colors.on_primary.dark.hex}};
+    fg-muted:       {{colors.on_surface_variant.dark.hex}};
+
+    accent-yellow:  {{colors.primary.dark.hex}};
+    accent-green:   {{colors.tertiary.dark.hex}};
+    accent-aqua:    {{colors.secondary.dark.hex}};
+    border-color:   {{colors.outline_variant.dark.hex}};
+    border-focus:   {{colors.outline.dark.hex}};
+}

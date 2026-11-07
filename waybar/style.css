@@ -1,0 +1,144 @@
+@import url("colors.css");
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Symbols Nerd Font", "Font Awesome 6 Free", "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+#workspaces {
+    background: @bg;
+    border: 2px solid @border;
+    padding: 0;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: @fg_dim;
+    background: @bg;
+    border-right: 1px solid @border;
+    transition: all 0.15s ease;
+}
+
+#workspaces button:hover {
+    background: @bg_alt;
+    color: @fg;
+}
+
+#workspaces button.active {
+    color: @on_primary;
+    background: @primary;
+}
+
+#custom-cava {
+    background: @bg;
+    color: @tertiary;
+    border: 2px solid @border;
+    padding: 0 14px;
+    margin-left: 8px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#window {
+    background: @bg;
+    color: @tertiary;
+    border: 2px solid @border;
+    padding: 0 12px;
+    margin-left: 8px;
+}
+
+#window.empty {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+#clock {
+    background: @bg;
+    color: @fg;
+    border: 2px solid @border;
+    padding: 0 14px;
+    border-right: none;
+}
+
+#mpris {
+    background: @bg;
+    color: @secondary;
+    border: 2px solid @border;
+    padding: 0 14px;
+    border-left: 1px solid @border;
+}
+
+#mpris.paused {
+    color: @fg_dim;
+}
+
+#mpris.stopped {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+}
+
+#cpu {
+    background: @error;
+    color: @on_error;
+    padding: 0 8px;
+    margin-left: 2px;
+}
+
+#memory {
+    background: @secondary;
+    color: @on_primary;
+    padding: 0 8px;
+    margin-left: 2px;
+}
+
+#pulseaudio {
+    background: @tertiary;
+    color: @on_primary;
+    padding: 0 8px;
+    margin-left: 2px;
+}
+
+#network {
+    background: @primary;
+    color: @on_primary;
+    padding: 0 8px;
+    margin-left: 2px;
+}
+
+#battery {
+    background: @secondary;
+    color: @on_primary;
+    padding: 0 8px;
+    margin-left: 2px;
+}
+
+#battery.warning {
+    background: @error;
+    color: @on_error;
+}
+
+#battery.critical {
+    background: @error;
+    color: @on_error;
+}
+
+#tray {
+    background: @bg;
+    border: 2px solid @border;
+    padding: 0 8px;
+    margin-left: 6px;
+}
