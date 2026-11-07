@@ -1,170 +1,110 @@
-# 🎨 Totsso-Hypr-Dotfiles
+# Totsso-Hypr-Dotfiles
 
-![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
-![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 ![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
-![Solus](https://img.shields.io/badge/Solus-5294E2?style=for-the-badge&logo=solus&logoColor=white)
-![openSUSE](https://img.shields.io/badge/openSUSE-73BA25?style=for-the-badge&logo=openSUSE&logoColor=white)
 
-Una configuración de Hyprland sencilla con tema gruvbox para **Fedora**, **Debian**, **Ubuntu**, **Arch Linux**, **Solus** y **openSUSE Tumbleweed**. Deja el escritorio listo para usar: compositor, barra, lanzador, terminal, fondo de pantalla y las herramientas necesarias para que inicies sesión y te pongas a trabajar.
+Una configuración de Hyprland **exclusiva para Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
-> ℹ️ **¿Y la version de BSD?** El port experimental para FreeBSD se ha movido a su propio repositorio. Esa versión contiene parches y ajustes específicos para hardware concreto, asi que no deberias instalarla en tu BSD principal. Puedes encontrarla aquí: [Free-BSD-Dotfile](https://github.com/random57619858-user/Free-BSD-Dotfile)
+Este dotfile ya no es un simple tema estático de Gruvbox: ahora es un **escritorio dinámico**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi y la pantalla de bloqueo usando **Matugen**.
 
-<img width="1366" height="768" alt="Totsso-Hypr-Dotfiles preview" src="https://github.com/user-attachments/assets/af45162d-e01c-4bf4-ae1d-ac44420ef289" />
+> **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha las ventajas de `pacman`, `yay` y el ecosistema de Arch para funcionar al 100%.
 
----
-
-## 📜 Sobre los scripts
-
-En la raíz del repositorio hay **cinco** scripts de instalación. Elige el que corresponda a tu sistema:
-
-| Script | Distro | Notas |
-|--------|--------|-------|
-| `debian-install.sh` | Debian | Cambia `/etc/apt/sources.list` a **Debian unstable (Sid)**. Hyprland y algunas dependencias solo están ahí, así que no hay forma de evitarlo si quieres un escritorio moderno en Debian. Sid es una rolling release: las roturas ocurren, ese es el precio. Si no te sientes cómodo con eso, este script no es para ti D: |
-| `ubuntu-install.sh` | Ubuntu | Instala Hyprland desde el repositorio `cppiber`. También te ofrece eliminar Snap por completo al inicio. |
-| `arch-install.sh` | Arch Linux | Usa `pacman` e instala `yay` automáticamente para traer las dependencias de Hyprland y LibreWolf desde AUR. Opcionalmente habilita `multilib` y configura `nss-mdns` para descubrir impresoras en red. |
-| `solus-install.sh` | Solus | Usa `eopkg` y funciona sin tocar repositorios. |
-| `opensuse-tumbleweed-install.sh` | openSUSE Tumbleweed | Usa `zypper` y funciona directamente. Hyprland está en los repositorios oficiales, así que no hacen falta repos extra. También resuelve algunas particularidades de openSUSE (zona del firewall, configuración de `nss-mdns` para impresoras, etc.). |
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/2836ee20-77c3-4240-a4bd-bced0a728471" />
 
 ---
 
-## ✅ Requisitos
+## ✨ Características Principales
 
-- Una instalación de **Debian**, **Ubuntu**, **Arch Linux**, **Solus** o **openSUSE Tumbleweed**
-- `git` y `sudo` instalados
-- Conexión a internet
-
----
-
-##  Instalación
-
-###  Paso 1: Clonar el repositorio
-
-**Ejecuta esto en tu terminal:**
-
-    git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
-    cd Totsso-Hypr-Dotfiles
-
-###  Paso 2: Ejecutar el instalador
-
-**Elige tu distribución y ejecuta el comando correspondiente:**
-
-</details>
-
-<details>
-<summary><b>Ubuntu</b></summary>
-
-**Ejecuta el instalador:**
-
-    chmod +x ubuntu-install.sh
-    ./ubuntu-install.sh
-
-</details>
-
-<details>
-<summary><b>Debian</b></summary>
-
-**Ejecuta el instalador:**
-
-    chmod +x debian-install.sh
-    ./debian-install.sh
-
-</details>
-
-<details>
-<summary><b>Arch Linux</b></summary>
-
-**Ejecuta el instalador:**
-
-    chmod +x arch-install.sh
-    ./arch-install.sh
-
-</details>
-
-<details>
-<summary><b>Solus</b></summary>
-
-**Ejecuta el instalador:**
-
-    chmod +x solus-install.sh
-    ./solus-install.sh
-
-</details>
-
-<details>
-<summary><b>openSUSE Tumbleweed</b></summary>
-
-**Ejecuta el instalador:**
-
-    chmod +x opensuse-tumbleweed-install.sh
-    ./opensuse-tumbleweed-install.sh
-
-</details>
+- **Soporte de Fondos Animados:** Utiliza `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
+- **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si usas un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
+- **Integración Total:** Los colores cambian automáticamente en:
+  - Bordes de ventanas de Hyprland.
+  - Waybar (barra de estado).
+  - Kitty (terminal).
+  - Rofi (lanzador de aplicaciones).
+  - Hyprlock (pantalla de bloqueo).
 
 ---
 
-## 📦 Qué instala
+## 📜 Instalación
 
-### Escritorio principal
+### Requisitos previos
+- Una instalación limpia de **Arch Linux** o derivadas (CachyOS, EndeavourOS, etc.).
+- `git` y `sudo` instalados.
+- Conexión a internet.
 
-- **Hyprland** — compositor
-- **Waybar** — barra de estado
-- **Rofi** — lanzador de aplicaciones y selector de fondos
-- **Kitty** — terminal
-- **Cava** — visualizador de audio
-- **Hyprpaper** — demonio de fondos de pantalla
+### Paso 1: Clonar el repositorio
 
-### Herramientas extra
+Ejecuta esto en tu terminal:
 
-- **GDM** — gestor de inicio de sesión
-- **Wlogout** — menú de apagado
-- **Hypridle + Hyprlock** — inactividad y bloqueo de pantalla
-- **Cliphist** — historial del portapapeles
-- **Grim + Slurp + wl-clipboard** — capturas de pantalla
-- **PipeWire + WirePlumber** — audio
-- **XDG Desktop Portal Hyprland** — compartir pantalla
-- **Hyprpolkitagent** — diálogos de autenticación
-- **Tema de iconos Fluent**
-- **JetBrainsMono Nerd Font**
+```bash
+git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
+cd Totsso-Hypr-Dotfiles
+```
+Luego ejecuta:
 
-### Opcional (se pregunta durante la instalación)
+```bash
+chmod +x arch-install.sh
+./arch-install.sh
+```
 
-- Soporte de impresoras (CUPS)
-- Flatpak + Flathub
-- Steam, OnlyOffice, Discord, VSCodium, OBS Studio
+ Paquetes que instala
+Entorno Base (Wayland)
 
----
+    Hyprland — Compositor.
 
-## Atajos de teclado
+    Waybar — Barra de estado.
 
-| Atajo | Acción |
-|-------|--------|
-| `SUPER + Q` | Abrir kitty |
-| `SUPER + D` | Lanzador de aplicaciones (rofi) |
-| `SUPER + W` | Cambiar fondo de pantalla |
-| `SUPER + C` | Cerrar ventana |
-| `SUPER + V` | Alternar ventana flotante |
-| `SUPER + A` | Historial del portapapeles |
-| `SUPER + L` | Bloquear pantalla |
-| `SUPER + 1-0` | Cambiar de espacio de trabajo |
-| `SUPER + SHIFT + 1-0` | Mover ventana a otro espacio de trabajo |
-| `SUPER + SHIFT + E` | Menú de apagado (wlogout) |
-| `SUPER + Print` | Captura de pantalla |
+    Rofi — Lanzador de aplicaciones.
 
----
+    Kitty — Terminal.
 
-##  Copias de seguridad
+    SwayNC / Dunst — Notificaciones.
 
-El script pregunta antes de sobrescribir cualquier cosa en `~/.config/`. Si aceptas, guarda una copia en `backup/` dentro del repositorio. También puedes respaldar tu `sources.list` antes de reemplazarlo (solo Debian/Ubuntu). En Arch Linux se respalda `/etc/nsswitch.conf` antes de habilitar mDNS para impresoras.
+    Cava — Visualizador de audio.
 
----
+Fondos y Tematización
 
-No es el mejor dotfile del mundo, pero espero que te guste :)
+    Hyprpaper — Fondos estáticos.
 
-## Rofi
+    mpvpaper — Fondos animados (video).
 
-<img width="760" height="380" alt="Rofi" src="https://github.com/user-attachments/assets/7fb0b784-571d-45ea-a46c-1a262ae832ec" />
+    ffmpeg — Extracción de frames para Matugen.
 
-## Waybar
+    matugen — Generación de paletas Material You.
 
-<img width="1366" height="62" alt="Waybar" src="https://github.com/user-attachments/assets/878e87ce-cc33-495a-a0a9-e556a3f2875e" />
+
+Utilidades del Sistema
+
+    GDM — Display Manager.
+
+    Wlogout — Menú de apagado.
+
+    Hypridle / Hyprlock — Inactividad y bloqueo.
+
+    Cliphist — Historial del portapapeles.
+
+    Grim + Slurp + wl-clipboard — Capturas de pantalla.
+
+    PipeWire + WirePlumber — Servidor de audio.
+
+Keybindings (Atajos Principales)
+```
+Atajo	Acción
+SUPER + Q	Abrir terminal (Kitty)
+SUPER + D	Lanzador de aplicaciones (Rofi)
+SUPER + W	Selector de Wallpaper (Imagen/Video)
+SUPER + C	Cerrar ventana activa
+SUPER + V	Alternar ventana flotante
+SUPER + A	Historial de portapapeles
+SUPER + L	Bloquear pantalla (Hyprlock)
+SUPER + 1-0	Cambiar de Workspace
+SUPER + SHIFT + 1-0	Enviar ventana a Workspace
+SUPER + SHIFT + E	Menú de energía (Wlogout)
+SUPER + Print	Screenshot
+```
+
+Respaldos
+
+El instalador realiza un respaldo preventivo en una carpeta backup/ dentro del repositorio antes de tocar cualquier archivo en ~/.config/. También respalda /etc/nsswitch.conf antes de configurar mDNS.
+
+No es el mejor dotfile del mundo, pero ahora es dinámico, animado y espero que te guste :)
