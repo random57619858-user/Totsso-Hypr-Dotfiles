@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎨 Totsso-Hypr-Dotfiles (v4.5)
+#  Totsso-Hypr-Dotfiles (v4.5)
 
 [![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://archlinux.org/)
 
@@ -10,7 +10,7 @@ Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas**
 
 </div>
 
-> ⚠️ **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones.
+>  **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones.
 
 <div align="center">
   <img width="800" alt="Totsso-Hypr-Dotfiles Preview" src="https://github.com/user-attachments/assets/2836ee20-77c3-4240-a4bd-bced0a728471" />
@@ -18,10 +18,10 @@ Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas**
 
 ---
 
-## ✨ Novedades
+##  Novedades
 
-- 🎥 **Soporte de Fondos Animados:** Integración nativa con `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
-- 🎨 **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si eliges un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
+-  **Soporte de Fondos Animados:** Integración nativa con `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
+-  **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si eliges un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
 -  **Integración Total:** Los colores cambian automáticamente en:
   -  Bordes de ventanas de **Hyprland**.
   -  Barra de estado **Waybar**.
@@ -31,9 +31,9 @@ Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas**
 
 ---
 
-## 📜 Instalación
+##  Instalación
 
-### ⚙️ Requisitos previos
+###  Requisitos previos
 - Una instalación limpia de **Arch Linux** o derivadas (CachyOS, EndeavourOS, etc.).
 - `git` y `sudo` instalados.
 - Conexión a internet.
@@ -58,7 +58,7 @@ chmod +x arch-install.sh
 
 ---
 
-## 📦 ¿Qué instala?
+##  ¿Qué instala?
 
 ### 🖥️ Entorno Base (Wayland)
 | Paquete | Función |
@@ -69,7 +69,7 @@ chmod +x arch-install.sh
 | **Kitty** | Terminal. |
 | **Cava** | Visualizador de audio. |
 
-### 🎨 Fondos y Tematización
+###  Fondos y Tematización
 | Paquete | Función |
 | :--- | :--- |
 | **Hyprpaper** | Fondos estáticos. |
@@ -77,7 +77,7 @@ chmod +x arch-install.sh
 | **ffmpeg** | Extracción de frames para Matugen. |
 | **matugen** | Generación de paletas Material You. |
 
-### 🛠️ Utilidades del Sistema
+###  Utilidades del Sistema
 | Paquete | Función |
 | :--- | :--- |
 | **GDM** | Display Manager (gestor de inicio). |
@@ -89,7 +89,7 @@ chmod +x arch-install.sh
 
 ---
 
-## ⌨️ Keybindings (Atajos Principales)
+##  Keybindings (Atajos Principales)
 
 | Atajo | Acción |
 | :--- | :--- |
