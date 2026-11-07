@@ -61,10 +61,16 @@ fi
 if [ -f /etc/os-release ]; then
     . /etc/os-release
     if [ "${ID:-}" != "arch" ] && [[ "${ID_LIKE:-}" != *"arch"* ]]; then
-        fail "This script is intended for Arch Linux only. Detected: ${PRETTY_NAME:-unknown}"
-        exit 1
+        warn "Detected system: ${PRETTY_NAME:-unknown}"
+        warn "This script is intended for Arch Linux and its derivatives only."
+        warn "If this is not an Arch-based distribution, the script WILL FAIL because it won't find pacman/yay."
+        if ! confirm "Are you sure you want to continue anyway?"; then
+            fail "Installation cancelled by user."
+            exit 1
+        fi
+    else
+        ok "Arch Linux detected: ${PRETTY_NAME:-unknown}"
     fi
-    ok "Arch Linux detected: ${PRETTY_NAME:-unknown}"
 else
     fail "Could not detect OS (/etc/os-release not found)."
     exit 1
@@ -116,7 +122,7 @@ info "Installing base packages from official repositories..."
 sudo pacman -S --needed --noconfirm \
     hyprland kitty gdm firefox nautilus cava rofi hyprpaper playerctl \
     brightnessctl waybar wl-clipboard grim slurp ffmpeg \
-    pipewire zenity wlogout xdg-desktop-portal-hyprland \
+    pipewire xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
     cliphist wireplumber pipewire-audio \
     xdg-user-dirs git unzip base-devel wget \
@@ -124,9 +130,9 @@ sudo pacman -S --needed --noconfirm \
 
 ok "Base packages installed."
 
-info "Installing AUR packages (matugen and mpvpaper)..."
-yay -S --needed --noconfirm matugen-bin mpvpaper
-ok "Matugen and mpvpaper installed."
+info "Installing AUR packages (matugen, mpvpaper and wlogout)..."
+yay -S --needed --noconfirm matugen-bin mpvpaper wlogout
+ok "Matugen, mpvpaper and wlogout installed."
 
 info "Configuring display manager..."
 if systemctl is-enabled sddm 2>/dev/null || systemctl is-enabled lightdm 2>/dev/null; then
