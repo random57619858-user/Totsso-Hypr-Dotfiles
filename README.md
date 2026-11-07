@@ -2,7 +2,12 @@
 
 #  Totsso-Hypr-Dotfiles (v4.5)
 
-[![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://archlinux.org/)
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/1fa6bccc-d3e4-45bd-8dd5-0528b57836e1" />
+
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/9f6c778b-12b9-4382-b553-8e827c035aac" />
+
+
 
 Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
