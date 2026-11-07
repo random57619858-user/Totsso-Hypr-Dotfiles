@@ -11,15 +11,11 @@
 
 Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
-*Olvída de los temas estáticos.* Este dotfile convierte tu escritorio en un entorno **dinámico y reactivo**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi e Hyprlock usando **Matugen**.
+*Olvída de los temas estáticos.* Este dotfile convierte tu escritorio en un entorno **dinámico**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi e Hyprlock usando **Matugen**.
 
 </div>
 
 >  **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones.
-
-<div align="center">
-  <img width="800" alt="Totsso-Hypr-Dotfiles Preview" src="https://github.com/user-attachments/assets/2836ee20-77c3-4240-a4bd-bced0a728471" />
-</div>
 
 ---
 
