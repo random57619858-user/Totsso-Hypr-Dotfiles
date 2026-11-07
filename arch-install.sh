@@ -115,7 +115,7 @@ fi
 info "Installing base packages from official repositories..."
 sudo pacman -S --needed --noconfirm \
     hyprland kitty gdm firefox nautilus cava rofi hyprpaper playerctl \
-    brightnessctl waybar wl-clipboard grim slurp \
+    brightnessctl waybar wl-clipboard grim slurp ffmpeg \
     pipewire zenity wlogout xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
     cliphist wireplumber pipewire-audio \
@@ -124,6 +124,9 @@ sudo pacman -S --needed --noconfirm \
 
 ok "Base packages installed."
 
+info "Installing AUR packages (matugen and mpvpaper)..."
+yay -S --needed --noconfirm matugen-bin mpvpaper
+ok "Matugen and mpvpaper installed."
 
 info "Configuring display manager..."
 if systemctl is-enabled sddm 2>/dev/null || systemctl is-enabled lightdm 2>/dev/null; then
@@ -280,16 +283,7 @@ deploy "$DOTFILES_DIR/waybar"   "$HOME/.config/waybar"   "waybar"
 deploy "$DOTFILES_DIR/wlogout"  "$HOME/.config/wlogout"  "wlogout"
 deploy "$DOTFILES_DIR/hypr"     "$HOME/.config/hypr"     "hypr"
 deploy "$DOTFILES_DIR/rofi"     "$HOME/.config/rofi"     "rofi"
-
-info "Setting up lockscreen wallpaper..."
-
-if [ -f "$DOTFILES_DIR/wallpapers/astronaut.jpg" ]; then
-    cp "$DOTFILES_DIR/wallpapers/astronaut.jpg" \
-       "$HOME/.config/hypr/lockscreen.jpg"
-    ok "Lockscreen wallpaper set (copy of astronaut.jpg)"
-else
-    warn "astronaut.jpg not found in wallpapers/, skipping lockscreen setup."
-fi
+deploy "$DOTFILES_DIR/matugen"  "$HOME/.config/matugen"  "matugen"
 
 info "Setting up wlogout icons from Fluent-dark..."
 ICON_SRC="$HOME/.local/share/icons/Fluent-dark/scalable/apps"
