@@ -1,38 +1,44 @@
-#  Totsso-Hypr-Dotfiles (v4.5)
+<div align="center">
+
+# 🎨 Totsso-Hypr-Dotfiles (v4.5)
+
+[![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)](https://archlinux.org/)
 
 Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
-Olvídate de los temas estáticos: este dotfile convierte tu escritorio en un entorno **dinámico y reactivo**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi e Hyprlock usando **Matugen** (Material You).
+*Olvída de los temas estáticos.* Este dotfile convierte tu escritorio en un entorno **dinámico y reactivo**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi e Hyprlock usando **Matugen**.
+
+</div>
 
 > ⚠️ **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones.
 
-<p align="center">
+<div align="center">
   <img width="800" alt="Totsso-Hypr-Dotfiles Preview" src="https://github.com/user-attachments/assets/2836ee20-77c3-4240-a4bd-bced0a728471" />
-</p>
+</div>
 
 ---
 
-## Novedades
+## ✨ Novedades
 
 - 🎥 **Soporte de Fondos Animados:** Integración nativa con `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
 - 🎨 **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si eliges un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
-- 🔄 **Integración Total:** Los colores cambian automáticamente en:
-  - Bordes de ventanas de **Hyprland**.
-  - Barra de estado **Waybar**.
-  - **Kitty** (terminal).
-  - **Rofi** (lanzador de aplicaciones y selector de fondos).
-  - **Hyprlock** (pantalla de bloqueo con fondo dinámico).
+-  **Integración Total:** Los colores cambian automáticamente en:
+  -  Bordes de ventanas de **Hyprland**.
+  -  Barra de estado **Waybar**.
+  -  **Kitty** (terminal).
+  -  **Rofi** (lanzador de aplicaciones y selector de fondos).
+  -  **Hyprlock** (pantalla de bloqueo con fondo dinámico).
 
 ---
 
 ## 📜 Instalación
 
-### Requisitos previos
+### ⚙️ Requisitos previos
 - Una instalación limpia de **Arch Linux** o derivadas (CachyOS, EndeavourOS, etc.).
 - `git` y `sudo` instalados.
 - Conexión a internet.
 
-### Paso 1: Clonar el repositorio
+###  Clonar el repositorio
 
 Ejecuta esto en tu terminal:
 
@@ -41,7 +47,7 @@ git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
 cd Totsso-Hypr-Dotfiles
 ```
 
-### Paso 2: Ejecutar el instalador
+###  Ejecutar el instalador
 
 El script se encargará de instalar los paquetes oficiales, los de AUR (`matugen`, `mpvpaper`), desplegar las configuraciones y crear los respaldos necesarios.
 
@@ -52,9 +58,9 @@ chmod +x arch-install.sh
 
 ---
 
-##  ¿Qué instala?
+## 📦 ¿Qué instala?
 
-### Entorno Base (Wayland)
+### 🖥️ Entorno Base (Wayland)
 | Paquete | Función |
 | :--- | :--- |
 | **Hyprland** | Compositor de ventanas. |
@@ -63,7 +69,7 @@ chmod +x arch-install.sh
 | **Kitty** | Terminal. |
 | **Cava** | Visualizador de audio. |
 
-### Fondos y Tematización
+### 🎨 Fondos y Tematización
 | Paquete | Función |
 | :--- | :--- |
 | **Hyprpaper** | Fondos estáticos. |
@@ -71,7 +77,7 @@ chmod +x arch-install.sh
 | **ffmpeg** | Extracción de frames para Matugen. |
 | **matugen** | Generación de paletas Material You. |
 
-### Utilidades del Sistema
+### 🛠️ Utilidades del Sistema
 | Paquete | Función |
 | :--- | :--- |
 | **GDM** | Display Manager (gestor de inicio). |
@@ -107,4 +113,6 @@ El instalador es seguro. Antes de tocar cualquier archivo en `~/.config/`, te pr
 
 ---
 
-No es el mejor dotfile del mundo, pero ahora es dinámico, animado y espero que te guste :)
+<div align="center">
+  <i>No es el mejor dotfile del mundo, pero ahora es dinámico, animado y espero que te guste :)</i>
+</div>
