@@ -15,7 +15,7 @@ Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas**
 
 </div>
 
->  **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones.
+>  **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones, esas distros tienen soporte de paquetes inexistentes o muy limitado y se me hizo inviable aplicar estas nuevas mejoras, asi que ahora solo hay para Arch :(
 
 ---
 
