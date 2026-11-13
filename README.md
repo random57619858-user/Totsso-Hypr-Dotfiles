@@ -1,6 +1,8 @@
 <div align="center">
 
-#  Totsso-Hypr-Dotfiles (v4.5)
+#  Totsso-Hypr-Dotfiles (v4.5) (Actualizaciones minimas)
+
+Eh decidido dejar de invertir tanto tiempo en este repositorio para darle mas mantenimiento a mi otro dotfile de Sway, no habra novedades nuevas por ahora, solo lo mantendre funcional si es que algfo deja de funcionar, lo arreglare pero solo eso :/
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/77bf16e6-c6c3-4e73-8225-823f5a3bab68" />
 
