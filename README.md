@@ -1,43 +1,33 @@
 <div align="center">
 
-#  Totsso-Hypr-Dotfiles (v4.5) (Actualizaciones minimas)
+# Totsso-Hypr-Dotfiles (v5.0)
 
-Eh decidido dejar de invertir tanto tiempo en este repositorio para darle mas mantenimiento a mi otro dotfile de Sway, no habra novedades nuevas por ahora, solo lo mantendre funcional si es que algfo deja de funcionar, lo arreglare pero solo eso :/
+Una configuración de **Hyprland** dinámica, animada y exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/77bf16e6-c6c3-4e73-8225-823f5a3bab68" />
-
-
-Una configuración de **Hyprland** exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
-
-*Olvída de los temas estáticos.* Este dotfile convierte tu escritorio en un entorno **dinámico**. Extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi e Hyprlock usando **Matugen**.
+*Olvídate de los temas estáticos.* Este dotfile extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi, Mako e Hyprlock usando **Matugen**.
 
 </div>
 
->  **Nota sobre otras distros:** Las versiones anteriores para Ubuntu, Debian, Solus y openSUSE han sido descontinuadas. Este repositorio ahora aprovecha el ecosistema de Arch (`pacman`, `yay`, AUR) para ofrecer la mejor experiencia sin limitaciones, esas distros tienen soporte de paquetes inexistentes o muy limitado y se me hizo inviable aplicar estas nuevas mejoras, asi que ahora solo hay para Arch :(
-
 ---
 
-##  Novedades
+##  Novedades (v5.0)
 
--  **Soporte de Fondos Animados:** Integración nativa con `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
--  **Tematización Dinámica (Material You):** Usa `matugen` para generar paletas de colores a partir de tus fondos. Si eliges un video, el script extrae automáticamente el primer frame con `ffmpeg` para calcular los colores.
--  **Integración Total:** Los colores cambian automáticamente en:
-  -  Bordes de ventanas de **Hyprland**.
-  -  Barra de estado **Waybar**.
-  -  **Kitty** (terminal).
-  -  **Rofi** (lanzador de aplicaciones y selector de fondos).
-  -  **Hyprlock** (pantalla de bloqueo con fondo dinámico).
+- **Notificaciones Dinámicas con Mako:** Integración completa con `mako`, tematizado automáticamente mediante `matugen` para adaptarse a tu fondo de pantalla.
+- **Modo No Molestar (DND):** Módulo interactivo en Waybar que silencia y desactiva las notificaciones con un solo clic, cambiando de icono y color según el estado.
+- **Waybar Rediseñada y Tooltips Enriquecidos:** Barra superior optimizada y estilizada. Los módulos de CPU, RAM, MPRIS y Reloj muestran información detallada e interactiva al pasar el ratón (incluyendo calendario completo).
+- **Soporte de Fondos Animados:** Integración nativa con `mpvpaper` para reproducir videos (`.mp4`, `.webm`, `.mkv`) como fondo de pantalla.
+- **Tematización Dinámica (Material You):** Los colores cambian automáticamente en bordes de ventanas, barra, terminal, lanzador, notificaciones y pantalla de bloqueo.
 
 ---
 
 ##  Instalación
 
-###  Requisitos previos
+### Requisitos previos
 - Una instalación limpia de **Arch Linux** o derivadas (CachyOS, EndeavourOS, etc.).
 - `git` y `sudo` instalados.
 - Conexión a internet.
 
-###  Clonar el repositorio
+### Clonar el repositorio
 
 Ejecuta esto en tu terminal:
 
@@ -46,9 +36,9 @@ git clone https://github.com/random57619858-user/Totsso-Hypr-Dotfiles
 cd Totsso-Hypr-Dotfiles
 ```
 
-###  Ejecutar el instalador
+### Ejecutar el instalador
 
-El script se encargará de instalar los paquetes oficiales, los de AUR (`matugen`, `mpvpaper`), desplegar las configuraciones y crear los respaldos necesarios.
+El script se encargará de instalar los paquetes oficiales y de AUR (`matugen`, `mpvpaper`, `wlogout`), desplegar las configuraciones y crear los respaldos necesarios.
 
 ```bash
 chmod +x arch-install.sh
@@ -57,24 +47,25 @@ chmod +x arch-install.sh
 
 ---
 
-##  ¿Qué instala?
+## 🛠️ ¿Qué instala?
 
-### 🖥️ Entorno Base (Wayland)
+###  Entorno Base (Wayland)
 | Paquete | Función |
 | :--- | :--- |
 | **Hyprland** | Compositor de ventanas. |
-| **Waybar** | Barra de estado. |
+| **Waybar** | Barra de estado con DND y tooltips avanzados. |
 | **Rofi** | Lanzador de aplicaciones y selector de wallpapers. |
 | **Kitty** | Terminal. |
 | **Cava** | Visualizador de audio. |
 
-###  Fondos y Tematización
+###  Tematización y Notificaciones
 | Paquete | Función |
 | :--- | :--- |
 | **Hyprpaper** | Fondos estáticos. |
 | **mpvpaper** | Fondos animados (video). |
 | **ffmpeg** | Extracción de frames para Matugen. |
 | **matugen** | Generación de paletas Material You. |
+| **Mako** | Gestor de notificaciones dinámicas. |
 
 ###  Utilidades del Sistema
 | Paquete | Función |
@@ -88,7 +79,7 @@ chmod +x arch-install.sh
 
 ---
 
-##  Keybindings (Atajos Principales)
+## ⌨️ Keybindings (Atajos Principales)
 
 | Atajo | Acción |
 | :--- | :--- |
