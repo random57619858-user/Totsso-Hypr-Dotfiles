@@ -2,6 +2,9 @@
 
 # Totsso-Hypr-Dotfiles (v5.0)
 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/5f750989-8207-475a-ac84-5e0a143a488f" />
+
+
 Una configuración de **Hyprland** dinámica, animada y exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
 *Olvídate de los temas estáticos.* Este dotfile extrae la paleta de colores de tu fondo de pantalla (ya sea una imagen o un video) y la aplica en tiempo real a los bordes de Hyprland, Waybar, Kitty, Rofi, Mako e Hyprlock usando **Matugen**.
