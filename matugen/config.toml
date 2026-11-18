@@ -19,3 +19,8 @@ output_path = '~/.config/rofi/colors.rasi'
 [templates.hyprlock]
 input_path  = '~/.config/matugen/templates/hyprlock-colors.conf.template'
 output_path = '~/.config/hypr/hyprlock-colors.conf'
+
+[templates.mako]
+input_path = "~/.config/matugen/templates/mako-colors"
+output_path = "~/.config/mako/config"
+post_hook = "makoctl reload"

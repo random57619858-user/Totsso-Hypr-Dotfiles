@@ -121,10 +121,10 @@ fi
 info "Installing base packages from official repositories..."
 sudo pacman -S --needed --noconfirm \
     hyprland kitty gdm firefox nautilus cava rofi hyprpaper playerctl \
-    brightnessctl waybar wl-clipboard grim slurp ffmpeg \
+    brightnessctl mako waybar wl-clipboard grim slurp ffmpeg \
     pipewire xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
-    cliphist wireplumber pipewire-audio \
+    cliphist fish wireplumber pipewire-audio \
     xdg-user-dirs git unzip base-devel wget \
     ttf-jetbrains-mono-nerd noto-fonts-emoji
 
@@ -290,6 +290,7 @@ deploy "$DOTFILES_DIR/wlogout"  "$HOME/.config/wlogout"  "wlogout"
 deploy "$DOTFILES_DIR/hypr"     "$HOME/.config/hypr"     "hypr"
 deploy "$DOTFILES_DIR/rofi"     "$HOME/.config/rofi"     "rofi"
 deploy "$DOTFILES_DIR/matugen"  "$HOME/.config/matugen"  "matugen"
+deploy "$DOTFILES_DIR/mako"     "$HOME/.config/mako"     "mako"
 
 info "Setting up wlogout icons from Fluent-dark..."
 ICON_SRC="$HOME/.local/share/icons/Fluent-dark/scalable/apps"

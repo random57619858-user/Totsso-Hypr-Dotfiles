@@ -1,0 +1,125 @@
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "margin-top": 8,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    "modules-left": [
+    "sway/workspaces",
+    "wlr/taskbar",
+    "custom/cava"
+    ],
+
+    "modules-center": [
+        "clock",
+        "mpris"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "pulseaudio",
+        "network",
+        "battery",
+        "custom/dnd"
+    ],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+
+    "custom/cava": {
+        "exec": "~/.config/waybar/cava.sh",
+        "format": "{}",
+        "tooltip": false
+    },
+
+    "mpris": {
+        "format": "󰎆 {artist} - {title}",
+        "format-paused": "󰏤 {artist} - {title}",
+        "max-length": 30,
+        "tooltip": true,
+        "tooltip-format": "{player}\n{title}\n{artist} — {album}\n{length}",
+        "tooltip-format-paused": "⏸ {title}\n{artist} — {album}\n{length}"
+    },
+
+    "clock": {
+        "format": "󰥔 {:%H:%M  •  %d/%m}",
+        "tooltip": true,
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+  
+    "custom/dnd": {
+        "exec": "~/.config/waybar/dnd.sh status",
+        "interval": 2,
+        "return-type": "json",
+        "format": "{}",
+        "tooltip": true,
+        "on-click": "~/.config/waybar/dnd.sh toggle; pkill -RTMIN+8 waybar",
+        "signal": 8
+    },
+
+    "cpu": {
+        "format": "󰍛 {usage}%",
+        "interval": 2,
+        "tooltip": true,
+        "tooltip-format": "Carga: {load}\nFrecuencia: {min_frequency} - {max_frequency} GHz\nPromedio: {avg_frequency} GHz"
+    },
+
+    "memory": {
+        "format": "󰘚 {percentage}%",
+        "interval": 5,
+        "tooltip": true,
+        "tooltip-format": "Usado: {used:0.1f} GiB / {total:0.1f} GiB\nDisponible: {avail:0.1f} GiB"
+    },
+ 
+    "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 18,
+    "icon-theme": "Fluent",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "on-click-right": "minimize",
+    "active-first": true
+   },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 0%",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        }
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 Wired",
+        "format-disconnected": "󰤭 Off"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁼", "󰁽", "󰁿", "󰂁", "󰁹"]
+    }
+}

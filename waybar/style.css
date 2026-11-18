@@ -1,9 +1,8 @@
 @import url("colors.css");
-
 * {
     border: none;
     border-radius: 0;
-    font-family: "Symbols Nerd Font", "Font Awesome 6 Free", "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
     font-size: 11px;
     font-weight: bold;
     min-height: 0;
@@ -20,7 +19,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 10px;
+    padding: 0 12px;
     color: @fg_dim;
     background: @bg;
     border-right: 1px solid @border;
@@ -45,22 +44,6 @@ window#waybar {
     margin-left: 8px;
     font-size: 14px;
     letter-spacing: 1px;
-}
-
-#window {
-    background: @bg;
-    color: @tertiary;
-    border: 2px solid @border;
-    padding: 0 12px;
-    margin-left: 8px;
-}
-
-#window.empty {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin: 0;
-    opacity: 0;
 }
 
 #clock {
@@ -136,9 +119,46 @@ window#waybar {
     color: @on_error;
 }
 
-#tray {
+#custom-dnd {
+    background: @primary;
+    color: @on_primary;
+    padding: 0 13px;
+    margin-left: 2px;
+    border-radius: 0;
+}
+
+#custom-dnd.active {
+    background: @error;
+    color: @on_error;
+}
+
+#taskbar {
     background: @bg;
     border: 2px solid @border;
-    padding: 0 8px;
-    margin-left: 6px;
+    padding: 0 4px;
+    margin-left: 8px;
+}
+
+#taskbar button {
+    padding: 0 6px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    background: transparent;  
+}
+
+#taskbar button:hover {
+    background: @bg_alt;
+}
+
+#taskbar button.active {
+    background: @bg_alt;
+}
+
+#taskbar.empty {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    border: none;
+    background: transparent;
 }

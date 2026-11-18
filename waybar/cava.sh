@@ -1,7 +1,18 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-pkill -f "cava -p $HOME/.config/cava/config" 2>/dev/null
+config_file="/tmp/waybar_cava_config"
+cat > "$config_file" <<EOF
+[general]
+framerate = 60
+bars = 10
+[output]
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 7
+bar_delimiter = 32
+EOF
 
-stdbuf -oL cava -p "$HOME/.config/cava/config" 2>/dev/null | while read -r line; do
-    echo "$line" | sed 's/;//g;s/0/ /g;s/1/▂/g;s/2/▃/g;s/3/▄/g;s/4/▅/g;s/5/▆/g;s/6/▇/g;s/7/█/g'
+cava -p "$config_file" | while read -r line; do
+    echo "$line" | sed -e 's/ //g' -e 's/0/ /g' -e 's/1/▂/g' -e 's/2/▃/g' -e 's/3/▄/g' -e 's/4/▅/g' -e 's/5/▆/g' -e 's/6/▇/g' -e 's/7/█/g'
 done
