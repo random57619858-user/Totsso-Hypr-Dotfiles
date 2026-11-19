@@ -120,7 +120,7 @@ fi
 
 info "Installing base packages from official repositories..."
 sudo pacman -S --needed --noconfirm \
-    hyprland kitty gdm firefox nautilus cava rofi hyprpaper playerctl \
+    hyprland kitty gdm firefox matugen nautilus cava rofi hyprpaper playerctl \
     brightnessctl mako waybar wl-clipboard grim slurp ffmpeg \
     pipewire xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
@@ -131,7 +131,7 @@ sudo pacman -S --needed --noconfirm \
 ok "Base packages installed."
 
 info "Installing AUR packages (matugen, mpvpaper and wlogout)..."
-yay -S --needed --noconfirm matugen-bin mpvpaper wlogout
+yay -S --needed --noconfirm mpvpaper wlogout
 ok "Matugen, mpvpaper and wlogout installed."
 
 info "Configuring display manager..."
