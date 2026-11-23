@@ -1,28 +1,46 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+
 ESC=$(printf '\033')
 RESET="${ESC}[0m"
 BOLD="${ESC}[1m"
-GREEN="${ESC}[32m"
-CYAN="${ESC}[36m"
-YELLOW="${ESC}[33m"
-BLUE="${ESC}[34m"
-RED="${ESC}[31m"
+DIM="${ESC}[2m"
+UNDERLINE="${ESC}[4m"
+
+GREEN="${ESC}[38;5;114m"
+CYAN="${ESC}[38;5;117m"
+YELLOW="${ESC}[38;5;221m"
+BLUE="${ESC}[38;5;111m"
+RED="${ESC}[38;5;203m"
+MAGENTA="${ESC}[38;5;176m"
+GRAY="${ESC}[38;5;242m"
+WHITE="${ESC}[38;5;255m"
 
 banner() {
     clear 2>/dev/null || true
     echo -e "${CYAN}${BOLD}"
-    echo "┌──────────────────────────────────────────────────┐"
-    echo "│        ARCH LINUX HYPRLAND DOTFILES INSTALLER    │"
-    echo "└──────────────────────────────────────────────────┘"
+    echo '   ██╗  ██╗██╗   ██╗██████╗ ██████╗ ██╗      █████╗ ███╗   ██╗██████╗ '
+    echo '   ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██║     ██╔══██╗████╗  ██║██╔══██╗'
+    echo '   ███████║ ╚████╔╝ ██████╔╝██████╔╝██║     ███████║██╔██╗ ██║██║  ██║'
+    echo '   ██╔══██║  ╚██╔╝  ██╔═══╝ ██╔══██╗██║     ██╔══██║██║╚██╗██║██║  ██║'
+    echo '   ██║  ██║   ██║   ██║     ██║  ██║███████╗██║  ██║██║ ╚████║██████╔╝'
+    echo '   ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ '
     echo -e "${RESET}"
+    echo -e "${GRAY}   ──────────────────────────────────────────${RESET}"
+    echo -e "   ${WHITE}${BOLD} HYPRLAND DOTFILES${RESET}"
+    echo -e "   ${DIM}${GRAY}   Arch Linux & Derivatives${RESET}"
+    echo -e "${GRAY}   ──────────────────────────────────────────${RESET}\n"
 }
 
-info()  { echo -e "\n${BLUE}${BOLD}==> ${1}${RESET}"; }
-ok()    { echo -e "${GREEN}✔ ${1}${RESET}"; }
-warn()  { echo -e "${YELLOW}⚠ ${1}${RESET}"; }
-fail()  { echo -e "${RED}✖ ${1}${RESET}" >&2; }
+info()  { echo -e "\n ${BLUE}${BOLD} ${WHITE}${1}${RESET}"; }
+ok()    { echo -e " ${GREEN} ${WHITE}${1}${RESET}"; }
+warn()  { echo -e " ${YELLOW} ${WHITE}${1}${RESET}"; }
+fail()  { echo -e " ${RED} ${WHITE}${1}${RESET}" >&2; }
+
+step() {
+    echo -e "\n${MAGENTA}${BOLD} ── ${1} ${RESET}${GRAY}────────────────────────────────────────${RESET}"
+}
 
 AUTO_INSTALL=false
 if [[ "${1:-}" == "--yes" ]]; then AUTO_INSTALL=true; fi
@@ -31,7 +49,9 @@ confirm() {
     if [ "$AUTO_INSTALL" = true ]; then return 0; fi
     local msg="$1"
     local reply=""
-    read -p "$msg (y/N): " reply < /dev/tty || true
+    echo -ne "\n ${YELLOW}${BOLD} ${WHITE}${msg} ${GRAY}[y/N]${RESET} "
+    read -r reply < /dev/tty || true
+    echo ""
     [[ "${reply:-}" =~ ^[yYsS]$ ]]
 }
 
@@ -51,6 +71,7 @@ mktemp_tracked() {
     printf '%s' "$d"
 }
 
+
 banner
 
 if [ "$(id -u)" -eq 0 ]; then
@@ -63,7 +84,6 @@ if [ -f /etc/os-release ]; then
     if [ "${ID:-}" != "arch" ] && [[ "${ID_LIKE:-}" != *"arch"* ]]; then
         warn "Detected system: ${PRETTY_NAME:-unknown}"
         warn "This script is intended for Arch Linux and its derivatives only."
-        warn "If this is not an Arch-based distribution, the script WILL FAIL because it won't find pacman/yay."
         if ! confirm "Are you sure you want to continue anyway?"; then
             fail "Installation cancelled by user."
             exit 1
@@ -106,21 +126,21 @@ fi
 info "Updating system..."
 sudo pacman -Syu --noconfirm
 
-info "Checking/Installing yay (AUR helper)..."
-if ! command -v yay >/dev/null 2>&1; then
-    info "Installing yay..."
+info "Checking/Installing trizen (AUR helper)..."
+if ! command -v trizen >/dev/null 2>&1; then
+    info "Installing trizen..."
     sudo pacman -S --needed --noconfirm git base-devel
-    TMP_YAY="$(mktemp_tracked)"
-    git clone https://aur.archlinux.org/yay.git "$TMP_YAY/yay"
-    ( cd "$TMP_YAY/yay" && makepkg -si --noconfirm )
-    ok "yay installed."
+    TMP_TRIZEN="$(mktemp_tracked)"
+    git clone https://aur.archlinux.org/trizen.git "$TMP_TRIZEN/trizen"
+    ( cd "$TMP_TRIZEN/trizen" && makepkg -si --noconfirm )
+    ok "trizen installed."
 else
-    ok "yay is already installed."
+    ok "trizen is already installed."
 fi
 
 info "Installing base packages from official repositories..."
 sudo pacman -S --needed --noconfirm \
-    hyprland kitty gdm firefox matugen nautilus cava rofi hyprpaper playerctl \
+    hyprland kitty gdm matugen nautilus cava rofi hyprpaper playerctl \
     brightnessctl mako waybar wl-clipboard grim slurp ffmpeg \
     pipewire xdg-desktop-portal-hyprland \
     hyprpolkitagent hypridle hyprlock \
@@ -130,9 +150,9 @@ sudo pacman -S --needed --noconfirm \
 
 ok "Base packages installed."
 
-info "Installing AUR packages (matugen, mpvpaper and wlogout)..."
-yay -S --needed --noconfirm mpvpaper wlogout
-ok "Matugen, mpvpaper and wlogout installed."
+info "Installing AUR packages (mpvpaper and wlogout)..."
+trizen -S --needed --noconfirm mpvpaper wlogout
+ok "mpvpaper and wlogout installed."
 
 info "Configuring display manager..."
 if systemctl is-enabled sddm 2>/dev/null || systemctl is-enabled lightdm 2>/dev/null; then
@@ -157,7 +177,90 @@ else
     warn "  systemctl --user enable --now pipewire.socket pipewire-pulse.socket wireplumber.service"
 fi
 
-info "Optional components..."
+
+step "Optional Apps"
+
+choose_one() {
+    local prompt="$1"; shift
+    local i=1
+    local opt
+    echo ""
+    echo -e " ${WHITE}${prompt}${RESET}"
+    echo -e " ${GRAY}  0) Skip${RESET}"
+    for opt in "$@"; do
+        echo -e " ${GRAY}  ${i}) ${WHITE}${opt}${RESET}"
+        i=$((i+1))
+    done
+    local reply=""
+    echo -ne " ${YELLOW}${BOLD} ${WHITE}Choose [0-$(($#))]${GRAY}:${RESET} "
+    read -r reply < /dev/tty || true
+    echo ""
+    if ! [[ "$reply" =~ ^[0-9]+$ ]]; then return 1; fi
+    if [ "$reply" -eq 0 ]; then return 1; fi
+    if [ "$reply" -gt "$#" ]; then return 1; fi
+    echo "$reply"
+    return 0
+}
+
+if sel="$(choose_one "Which browser do you want?" "brave-bin" "ungoogled-chromium" "zen-browser-bin")"; then
+    case "$sel" in
+        1) PKG="brave-bin" ;;
+        2) PKG="ungoogled-chromium" ;;
+        3) PKG="zen-browser-bin" ;;
+    esac
+    info "Installing $PKG via trizen..."
+    trizen -S --needed --noconfirm "$PKG" && ok "$PKG installed." || warn "Failed to install $PKG."
+else
+    ok "Skipping browser."
+fi
+
+if sel="$(choose_one "Which Discord client do you want?" "serein-bin" "legcord-bin" "dissent-bin")"; then
+    case "$sel" in
+        1) PKG="serein-bin" ;;
+        2) PKG="legcord-bin" ;;
+        3) PKG="dissent-bin" ;;
+    esac
+    info "Installing $PKG via trizen..."
+    trizen -S --needed --noconfirm "$PKG" && ok "$PKG installed." || warn "Failed to install $PKG."
+else
+    ok "Skipping Discord client."
+fi
+
+if sel="$(choose_one "Which music streaming app do you want?" "simpmusic-bin" "limusic-bin")"; then
+    case "$sel" in
+        1) PKG="simpmusic-bin" ;;
+        2) PKG="limusic-bin" ;;
+    esac
+    info "Installing $PKG via trizen..."
+    trizen -S --needed --noconfirm "$PKG" && ok "$PKG installed." || warn "Failed to install $PKG."
+else
+    ok "Skipping music app."
+fi
+
+if sel="$(choose_one "Which office suite do you want?" "onlyoffice-bin" "openoffice-bin")"; then
+    case "$sel" in
+        1) PKG="onlyoffice-bin" ;;
+        2) PKG="openoffice-bin" ;;
+    esac
+    info "Installing $PKG via trizen..."
+    trizen -S --needed --noconfirm "$PKG" && ok "$PKG installed." || warn "Failed to install $PKG."
+else
+    ok "Skipping office suite."
+fi
+
+if sel="$(choose_one "Which code editor do you want?" "vscodium-bin" "lapce-git")"; then
+    case "$sel" in
+        1) PKG="vscodium-bin" ;;
+        2) PKG="lapce-git" ;;
+    esac
+    info "Installing $PKG via trizen..."
+    trizen -S --needed --noconfirm "$PKG" && ok "$PKG installed." || warn "Failed to install $PKG."
+else
+    ok "Skipping code editor."
+fi
+
+
+step "Optional Components"
 
 if confirm "Install printer support (CUPS + network discovery)?"; then
     sudo pacman -S --needed --noconfirm cups cups-pdf avahi nss-mdns \
@@ -187,21 +290,9 @@ if confirm "Install Flatpak + Flathub?"; then
     ok "Flatpak and Flathub configured."
 fi
 
-if confirm "Install extra apps via Flatpak (Steam, OnlyOffice, Discord, VSCodium, OBS Studio)?"; then
-    for app in \
-        com.valvesoftware.Steam \
-        com.discordapp.Discord \
-        org.onlyoffice.desktopeditors \
-        com.vscodium.codium \
-        com.obsproject.Studio
-    do
-        info "Installing $app..."
-        flatpak install -y --noninteractive flathub "$app"
-    done
-    ok "Extra apps installed via Flatpak."
-fi
 
-info "Setting up user directories..."
+step "Deploying Dotfiles"
+
 if command -v xdg-user-dirs-update >/dev/null 2>&1; then
     xdg-user-dirs-update
 fi
@@ -218,9 +309,9 @@ fi
 info "Installing Fluent icon theme..."
 TMP_ICONS="$(mktemp_tracked)"
 if git clone --depth=1 https://github.com/vinceliuice/Fluent-icon-theme.git \
-        "$TMP_ICONS/Fluent-icon-theme"; then
+        "$TMP_ICONS/Fluent-icon-theme" >/dev/null 2>&1; then
     ( cd "$TMP_ICONS/Fluent-icon-theme" && chmod +x install.sh && \
-      ./install.sh -d "$HOME/.local/share/icons" )
+      ./install.sh -d "$HOME/.local/share/icons" >/dev/null 2>&1 )
     ok "Icons installed."
 else
     warn "Failed to clone Fluent-icon-theme; skipping."
@@ -245,8 +336,6 @@ if command -v gsettings &> /dev/null && [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; 
 else
     warn "gsettings or D-Bus session not available; skipping runtime GTK settings."
 fi
-
-info "Deploying dotfiles..."
 
 deploy() {
     local src="$1" dest="$2" name="$3"
@@ -335,7 +424,9 @@ done
 find "$DOTFILES_DIR" -maxdepth 2 -type f -name "*.sh" \
     -exec chmod +x {} + 2>/dev/null || true
 
-echo -e "\n${GREEN}${BOLD}┌──────────────────────────────────────────────────┐"
-echo "│              All done! Reboot when ready :)        │"
-echo "└──────────────────────────────────────────────────┘${RESET}\n"
-echo -e "${CYAN}Backups saved to: ${BOLD}$BACKUP_ROOT${RESET}\n"
+
+echo -e "\n${GRAY}   ──────────────────────────────────────────${RESET}"
+echo -e "   ${GREEN}${BOLD}  Installation Complete!${RESET}"
+echo -e "   ${WHITE}You can now reboot and enjoy Hyprland.${RESET}"
+echo -e "${GRAY}   ──────────────────────────────────────────${RESET}"
+echo -e "   ${CYAN}Backups saved to: ${WHITE}${BOLD}$BACKUP_ROOT${RESET}\n"
