@@ -41,7 +41,7 @@ cd Totsso-Hypr-Dotfiles
 
 ### Ejecutar el instalador
 
-El script se encargará de instalar los paquetes oficiales y de AUR (`matugen`, `mpvpaper`, `wlogout`), desplegar las configuraciones y crear los respaldos necesarios.
+El script se encargará de instalar los paquetes oficiales y de AUR (`mpvpaper`, `wlogout`), desplegar las configuraciones y crear los respaldos necesarios. Usa **trizen** como helper de AUR
 
 ```bash
 chmod +x arch-install.sh
@@ -79,6 +79,18 @@ chmod +x arch-install.sh
 | **Cliphist** | Historial del portapapeles. |
 | **Grim + Slurp** | Capturas de pantalla. |
 | **PipeWire + WirePlumber** | Servidor de audio. |
+
+---
+
+##  Optional Apps (instalación interactiva)
+
+Durante la instalación, el script te preguntará qué aplicaciones opcionales quieres instalar (todas vía **trizen** desde AUR). Puedes elegir **0) Skip** para no instalar ninguna:
+
+- **Navegador:** `brave-bin`, `ungoogled-chromium`, `zen-browser-bin`
+- **Cliente de Discord:** `serein-bin`, `legcord-bin`, `dissent-bin`
+- **Música streaming:** `simpmusic-bin`, `limusic-bin`
+- **Suite de ofimática:** `onlyoffice-bin`, `openoffice-bin`
+- **Editor de código:** `vscodium-bin`, `lapce-git`
 
 ---
 
