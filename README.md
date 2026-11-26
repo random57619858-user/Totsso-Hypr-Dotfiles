@@ -4,6 +4,7 @@
 
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/5f750989-8207-475a-ac84-5e0a143a488f" />
 
+ATENCION:  eh detectado un error que no permite instalar el dotfile, esta relacionado con trizen, pronto sera parcheado
 
 Una configuración de **Hyprland** dinámica, animada y exclusiva para **Arch Linux y sus derivadas** (como CachyOS o EndeavourOS). 
 
