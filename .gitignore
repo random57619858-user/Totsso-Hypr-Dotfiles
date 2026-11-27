@@ -1,15 +1,23 @@
+# Matugen generated files
+hypr/colors.lua
+hypr/hyprlock-colors.conf
+waybar/colors.css
+rofi/colors.rasi
+kitty/colors.conf
+wlogout/style.css
 
-# Backup files
+# Backups and cache
+backup/
+.cache/
+install.log
+
+# Editor / OS noise
 *.bak
 *.backup
 *~
-
-# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# OS
 .DS_Store
 Thumbs.db

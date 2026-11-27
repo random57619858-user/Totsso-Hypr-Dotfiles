@@ -1,26 +1,47 @@
 [config]
+version_check = false
+prefer = "saturation"
+contrast = 0.0
 
 [templates.hyprland]
-input_path  = '~/.config/matugen/templates/hyprland-colors.lua.template'
-output_path = '~/.config/hypr/colors.lua'
+input_path = "~/.config/matugen/templates/hyprland-colors.lua.template"
+output_path = "~/.config/hypr/colors.lua"
+post_hook = "hyprctl reload || true"
+
+[templates.hyprland_conf]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf.template"
+output_path = "~/.config/hypr/colors.conf"
 
 [templates.waybar]
-input_path  = '~/.config/matugen/templates/waybar-colors.css.template'
-output_path = '~/.config/waybar/colors.css'
+input_path = "~/.config/matugen/templates/waybar-colors.css.template"
+output_path = "~/.config/waybar/colors.css"
 
 [templates.kitty]
-input_path  = '~/.config/matugen/templates/kitty-colors.conf.template'
-output_path = '~/.config/kitty/colors.conf'
-
-[templates.rofi]
-input_path  = '~/.config/matugen/templates/rofi-colors.rasi.template'
-output_path = '~/.config/rofi/colors.rasi'
+input_path = "~/.config/matugen/templates/kitty-colors.conf.template"
+output_path = "~/.config/kitty/colors.conf"
 
 [templates.hyprlock]
-input_path  = '~/.config/matugen/templates/hyprlock-colors.conf.template'
-output_path = '~/.config/hypr/hyprlock-colors.conf'
+input_path = "~/.config/matugen/templates/hyprlock-colors.conf.template"
+output_path = "~/.config/hypr/hyprlock-colors.conf"
 
 [templates.mako]
 input_path = "~/.config/matugen/templates/mako-colors"
 output_path = "~/.config/mako/config"
 post_hook = "makoctl reload"
+
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi-colors.rasi.template"
+output_path = "~/.config/rofi/colors.rasi"
+
+[templates.wlogout]
+input_path = "~/.config/matugen/templates/wlogout-style.css.template"
+output_path = "~/.config/wlogout/style.css"
+post_hook = "sed -i \"s|@HOME@|$HOME|g\" ~/.config/wlogout/style.css"
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/gtk3-colors.css.template"
+output_path = "~/.config/gtk-3.0/gtk.css"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/gtk4-colors.css.template"
+output_path = "~/.config/gtk-4.0/gtk.css"

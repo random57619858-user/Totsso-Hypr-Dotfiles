@@ -1,4 +1,5 @@
 @import url("colors.css");
+
 * {
     border: none;
     border-radius: 0;
@@ -12,54 +13,183 @@ window#waybar {
     background: transparent;
 }
 
+tooltip {
+    background: @bg_alt;
+    border: 1px solid alpha(@border, 0.85);
+    border-radius: 12px;
+    padding: 5px 9px;
+}
+
+tooltip label {
+    color: @fg;
+}
+
+#workspaces,
+#custom-cava,
+#apps,
+#clock,
+#mpris,
+#info,
+#pulseaudio,
+#custom-network,
+#battery,
+#session {
+    background: alpha(@bg, 0.95);
+    border: 1px solid alpha(@border, 0.85);
+    border-radius: 100px;
+}
+
+#cpu,
+#memory,
+#custom-temperature,
+#custom-dnd,
+#custom-power {
+    background: transparent;
+    border: none;
+    border-radius: 100px;
+    padding: 0 8px;
+    transition: color 150ms ease;
+}
+
+#info,
+#session,
+#apps {
+    padding: 3px 5px;
+}
+
+#pulseaudio,
+#custom-network,
+#battery {
+    padding: 3px 11px;
+    margin-left: 6px;
+}
+
+#apps {
+    padding: 2px 5px;
+    margin: 0 4px 0 6px;
+}
+
+#info {
+    padding: 2px 5px;
+    margin-left: 6px;
+}
+
+#session {
+    margin-left: 6px;
+}
+
 #workspaces {
-    background: @bg;
-    border: 2px solid @border;
-    padding: 0;
+    padding: 3px;
 }
 
 #workspaces button {
-    padding: 0 12px;
+    padding: 0 10px;
+    margin: 0 1px;
+    min-width: 12px;
+    background: transparent;
     color: @fg_dim;
-    background: @bg;
-    border-right: 1px solid @border;
-    transition: all 0.15s ease;
+    border-radius: 100px;
+    box-shadow: none;
+    text-shadow: none;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+#workspaces button.empty {
+    color: @border_strong;
 }
 
 #workspaces button:hover {
-    background: @bg_alt;
+    background: alpha(@bg_high, 0.9);
     color: @fg;
+    box-shadow: none;
 }
 
-#workspaces button.active {
-    color: @on_primary;
+#workspaces button.active,
+#workspaces button.focused {
     background: @primary;
+    color: @on_primary;
+}
+
+#workspaces button.urgent {
+    background: @error;
+    color: @on_error;
+}
+
+#taskbar {
+    padding: 0 2px;
+    margin-left: 4px;
+}
+
+#taskbar button {
+    padding: 4px;
+    margin: 0 5px;
+    background: transparent;
+    border-radius: 6px;
+    opacity: 0.7;
+    box-shadow: none;
+    transition: background-color 160ms ease, opacity 160ms ease;
+}
+
+#taskbar button:hover {
+    background: alpha(@fg, 0.07);
+    opacity: 1;
+    box-shadow: none;
+}
+
+#taskbar button.active {
+    background: alpha(@primary, 0.14);
+    opacity: 1;
+    box-shadow: none;
+}
+
+#taskbar button.minimized {
+    opacity: 0.35;
+}
+
+#taskbar button.minimized.active {
+    opacity: 1;
+}
+
+#taskbar button.urgent {
+    background: @error_ctr;
+    opacity: 1;
+    box-shadow: inset 0 0 0 1px @error;
+}
+
+#taskbar.empty {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
 }
 
 #custom-cava {
-    background: @bg;
+    padding: 0 11px;
+    margin-left: 6px;
     color: @tertiary;
-    border: 2px solid @border;
-    padding: 0 14px;
-    margin-left: 8px;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 1px;
 }
 
+#custom-cava.silent {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    font-size: 0;
+}
+
 #clock {
-    background: @bg;
-    color: @fg;
-    border: 2px solid @border;
     padding: 0 14px;
-    border-right: none;
+    margin: 0 6px;
+    color: @primary;
 }
 
 #mpris {
-    background: @bg;
-    color: @secondary;
-    border: 2px solid @border;
     padding: 0 14px;
-    border-left: 1px solid @border;
+    color: @secondary;
 }
 
 #mpris.paused {
@@ -72,93 +202,116 @@ window#waybar {
     padding: 0;
     margin: 0;
     opacity: 0;
+    min-width: 0;
+}
+
+#pulseaudio,
+#custom-network,
+#battery {
+    transition: background-color 150ms ease;
 }
 
 #cpu {
-    background: @error;
-    color: @on_error;
-    padding: 0 8px;
-    margin-left: 2px;
+    color: @error;
+    border-color: alpha(@error, 0.4);
 }
 
 #memory {
-    background: @secondary;
-    color: @on_primary;
-    padding: 0 8px;
-    margin-left: 2px;
+    color: @secondary;
+    border-color: alpha(@secondary, 0.4);
 }
 
 #pulseaudio {
-    background: @tertiary;
-    color: @on_primary;
-    padding: 0 8px;
-    margin-left: 2px;
+    color: @tertiary;
+    border-color: alpha(@tertiary, 0.4);
 }
 
-#network {
-    background: @primary;
-    color: @on_primary;
-    padding: 0 8px;
-    margin-left: 2px;
+#custom-network {
+    color: @primary;
+    border-color: alpha(@primary, 0.4);
 }
 
 #battery {
-    background: @secondary;
-    color: @on_primary;
-    padding: 0 8px;
-    margin-left: 2px;
-}
-
-#battery.warning {
-    background: @error;
-    color: @on_error;
-}
-
-#battery.critical {
-    background: @error;
-    color: @on_error;
+    color: @secondary;
+    border-color: alpha(@secondary, 0.4);
 }
 
 #custom-dnd {
-    background: @primary;
-    color: @on_primary;
-    padding: 0 13px;
-    margin-left: 2px;
-    border-radius: 0;
+    color: @primary;
 }
 
 #custom-dnd.active {
-    background: @error;
-    color: @on_error;
+    color: @error;
 }
 
-#taskbar {
-    background: @bg;
-    border: 2px solid @border;
-    padding: 0 4px;
-    margin-left: 8px;
+#custom-power {
+    color: @error;
 }
 
-#taskbar button {
-    padding: 0 6px;
-    margin: 0 2px;
-    border-radius: 4px;
-    transition: all 0.15s ease;
-    background: transparent;  
+#custom-temperature {
+    color: @tertiary;
 }
 
-#taskbar button:hover {
-    background: @bg_alt;
+#custom-temperature.warm {
+    color: @secondary;
 }
 
-#taskbar button.active {
-    background: @bg_alt;
+#custom-temperature.hot {
+    color: @error;
 }
 
-#taskbar.empty {
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-    border: none;
-    background: transparent;
+#pulseaudio:hover,
+#custom-network:hover,
+#battery:hover {
+    background: alpha(@bg_alt, 0.98);
+}
+
+#cpu:hover,
+#memory:hover,
+#custom-temperature:hover,
+#custom-dnd:hover,
+#custom-power:hover {
+    color: @fg;
+}
+
+#pulseaudio.muted {
+    color: @fg_dim;
+    border-color: alpha(@border, 0.85);
+}
+
+#custom-network.disconnected {
+    color: @fg_dim;
+    border-color: alpha(@border, 0.85);
+}
+
+#battery.charging {
+    color: @tertiary;
+    border-color: alpha(@tertiary, 0.45);
+}
+
+#battery.warning {
+    color: @error;
+    border-color: alpha(@error, 0.55);
+}
+
+#battery.critical {
+    background: @error_ctr;
+    color: @on_error_ctr;
+    border-color: @error;
+}
+
+#custom-apps,
+#custom-info {
+    padding: 0 9px;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    color: @tertiary;
+    transition: color 180ms ease;
+}
+
+#apps.expanded #custom-apps,
+#info.expanded #custom-info,
+#custom-apps:hover,
+#custom-info:hover {
+    color: @primary;
 }

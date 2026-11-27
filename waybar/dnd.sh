@@ -7,7 +7,7 @@ case "$1" in
 esac
 
 if makoctl mode | grep -q 'do-not-disturb'; then
-    echo '{"text": "󰚣", "tooltip": "No Molestar: Activado", "class": "active"}'
+    echo '{"text": "󰚣", "tooltip": "Do Not Disturb: On", "class": "active"}'
 else
-    echo '{"text": "󰚢", "tooltip": "No Molestar: Desactivado", "class": "inactive"}'
+    echo '{"text": "󰚢", "tooltip": "Do Not Disturb: Off", "class": "inactive"}'
 fi

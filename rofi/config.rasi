@@ -1,105 +1,171 @@
 @import "colors.rasi"
 
 configuration {
-    font: "JetBrainsMono Nerd Font Bold 10";
-    show-icons: true;
-    icon-theme: "Fluent-dark";
-    display-drun: "   ";
+    font:                "JetBrainsMono Nerd Font 11";
+    show-icons:          true;
+    icon-theme:          "Fluent-dark";
     drun-display-format: "{name}";
-    disable-history: false;
-    sidebar-mode: false;
+    display-drun:        "󰍉";
+    display-run:         "󰆍";
+    display-window:      "󰖲";
+    disable-history:     false;
+    sidebar-mode:        false;
+    hover-select:        true;
+    drun-match-fields:   "name,generic,exec,categories,keywords";
 }
 
 * {
-    background-color: @bg-dark;
+    background-color: transparent;
     text-color:       @fg-main;
-    background-alpha: 100%;
+    border-radius:    0;
+    font:             "JetBrainsMono Nerd Font 11";
+    margin:           0;
+    padding:          0;
+
+    normal-background:            transparent;
+    normal-foreground:            @fg-main;
+    alternate-normal-background:  transparent;
+    alternate-normal-foreground:  @fg-main;
+    selected-normal-background:   @bg-selected;
+    selected-normal-foreground:   @fg-selected;
+    active-background:            @bg-field;
+    active-foreground:            @fg-bright;
+    urgent-background:            @accent-alt;
+    urgent-foreground:            @bg-base;
+    selected-active-background:   @bg-selected;
+    selected-active-foreground:   @fg-selected;
+    selected-urgent-background:   @accent-alt;
+    selected-urgent-foreground:   @bg-base;
 }
 
 window {
-    background-color: @bg-dark;
-    border:           2px;
-    border-color:     @border-color;
-    width:            650px;
-    padding:          16px;
-    border-radius:    0; /* Cuadrado */
+    background-color: @bg-base;
+    border:           1px;
+    border-color:     @outline-soft;
+    border-radius:    20px;
+    width:            640px;
+    padding:          10px;
     location:         center;
     anchor:           center;
 }
 
 mainbox {
-    background-color: @bg-dark;
-    spacing:          12px;
-    children:         [ inputbar, listview ];
+    background-color: transparent;
+    spacing:          8px;
+    padding:          0;
+    children:         [ inputbar, mode-switcher, listview ];
 }
 
 inputbar {
-    background-color: @bg-input;
-    border:           1px;
-    border-color:     @border-color;
-    border-radius:    0; /* Cuadrado */
-    padding:          10px 16px;
-    spacing:          10px;
+    background-color: @bg-field;
+    border:           0;
+    border-radius:    14px;
+    padding:          13px 16px;
+    spacing:          12px;
     children:         [ prompt, entry ];
 }
 
 prompt {
     background-color: transparent;
-    text-color:       @accent-yellow;
-    vertical-align:   0.5;
+    text-color:       @accent;
+    padding:          0 8px 0 0;
+    font:             "JetBrainsMono Nerd Font Medium 13";
 }
 
 entry {
     background-color: transparent;
-    placeholder:      "Buscar...";
-    placeholder-color:@fg-muted;
     text-color:       @fg-bright;
-    vertical-align:   0.5;
+    placeholder:      "Search…";
+    placeholder-color:@fg-muted;
+    cursor:           text;
+    font:             "JetBrainsMono Nerd Font Medium 11";
+}
+
+case-indicator {
+    background-color: transparent;
+    text-color:       @fg-muted;
+}
+
+message {
+    background-color: @bg-surface;
+    border:           0;
+    border-radius:    12px;
+    padding:          10px 16px;
+    margin:           0 0 4px 0;
+    text-color:       @accent-soft;
+}
+
+textbox {
+    background-color: transparent;
+    text-color:       @fg-muted;
 }
 
 listview {
     background-color: transparent;
+    border:           0;
     columns:          1;
-    lines:            6;
+    lines:            8;
     spacing:          4px;
     cycle:            true;
     dynamic:          true;
-    scrollbar:        false;
-    border:           none;
+    scrollbar:        true;
+    fixed-height:     true;
+    padding:          4px 8px 0 0;
+    margin:           0;
 }
 
 element {
     background-color: transparent;
     text-color:       @fg-main;
-    orientation:      horizontal;
-    padding:          8px 12px;
-    border-radius:    0; /* Cuadrado */
+    border:           0;
+    border-radius:    12px;
+    padding:          9px 12px;
+    spacing:          12px;
 }
 
-element normal.normal {
-    background-color: transparent;
-    text-color:       @fg-main;
-}
-
-element selected.normal {
-    background-color: @bg-active;
-    text-color:       @fg-dark;
-}
-
-element alternate.normal {
-    background-color: transparent;
-    text-color:       @fg-main;
-}
-
-element-icon {
-    background-color: transparent;
-    size:             22px;
-    vertical-align:   0.5;
-    margin-right:     12px;
+element selected {
+    background-color: @bg-selected;
+    text-color:       @fg-selected;
 }
 
 element-text {
     background-color: transparent;
     text-color:       inherit;
     vertical-align:   0.5;
+}
+
+element-icon {
+    background-color: transparent;
+    size:             44px;
+    border-radius:    8px;
+    vertical-align:   0.5;
+    margin:           0 2px 0 0;
+}
+
+scrollbar {
+    background-color: @bg-surface;
+    width:            4px;
+    handle-width:     4px;
+    handle-color:     @accent;
+    border-radius:    2px;
+    margin:           4px 0 0 2px;
+}
+
+mode-switcher {
+    background-color: transparent;
+    spacing:          6px;
+    padding:          0 2px;
+}
+
+button {
+    background-color: @bg-surface;
+    text-color:       @fg-muted;
+    border:           0;
+    border-radius:    10px;
+    padding:          8px 14px;
+}
+
+button selected {
+    background-color: @bg-selected;
+    text-color:       @fg-selected;
 }

@@ -1,0 +1,18 @@
+general {
+    col.active_border = rgba({{colors.primary.default.hex_stripped}}ff) rgba({{colors.tertiary.default.hex_stripped}}ff) 45deg
+    col.inactive_border = rgba({{colors.outline.default.hex_stripped}}ff)
+}
+
+<* if {{ is_dark_mode }} *>
+decoration {
+    shadow {
+        color = rgba({{colors.surface.default.hex_stripped}}ee)
+    }
+}
+<* else *>
+decoration {
+    shadow {
+        color = rgba({{colors.surface_container_low.default.hex_stripped}}ee)
+    }
+}
+<* endif *>
