@@ -82,6 +82,8 @@ hl.animation({ leaf = "layersIn",    enabled = true, speed = 7,  bezier = "fluid
 hl.animation({ leaf = "layersOut",   enabled = true, speed = 7,  bezier = "fluidEase", style = "slide" })
 hl.animation({ leaf = "workspaces",  enabled = true, speed = 7,  bezier = "fluidEase", style = "slide" })
 
+hl.layer_rule({ match = { namespace = "selection" }, no_anim = true })
+
 hl.config({
     dwindle = {
         preserve_split = true,

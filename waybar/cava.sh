@@ -1,6 +1,6 @@
 #!/bin/bash
 
-config_file="/tmp/waybar_cava_config"
+config_file=$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/waybar-cava.XXXXXX") || exit 1
 cat > "$config_file" <<EOF
 [general]
 framerate = 60
@@ -15,43 +15,50 @@ EOF
 
 cleanup() {
     rm -f "$config_file"
-    exit 0
 }
-trap cleanup INT TERM
+trap cleanup EXIT
+trap 'exit 0' INT TERM
 
 silence_limit=3000
 printf '{"text": "", "class": "silent"}\n'
 
 while true; do
     hidden=1
-    silence_start=""
+    silence_start=0
 
     ( cava -p "$config_file" 2>/dev/null | while IFS= read -r line; do
-        now=${EPOCHREALTIME/./}
-        now=$((now / 1000))
+        now=${EPOCHREALTIME//[.,]/}
+        now=$((10#$now / 1000))
+
+        bars=${line// /}
+        bars=${bars//0/▁}
+        bars=${bars//1/▂}
+        bars=${bars//2/▃}
+        bars=${bars//3/▄}
+        bars=${bars//4/▅}
+        bars=${bars//5/▆}
+        bars=${bars//6/▇}
+        bars=${bars//7/█}
 
         case "$line" in
             *[1-7]*)
-                bars=$(printf '%s' "$line" | sed -e 's/ //g' -e 's/0/ /g' \
-                    -e 's/1/▂/g' -e 's/2/▃/g' -e 's/3/▄/g' -e 's/4/▅/g' \
-                    -e 's/5/▆/g' -e 's/6/▇/g' -e 's/7/█/g')
-                printf '{"text": "%s", "class": "playing"}\n' "$bars"
                 hidden=0
-                silence_start=""
+                silence_start=0
+                printf '{"text": "%s", "class": "playing"}\n' "$bars"
                 ;;
             *)
                 if [ "$hidden" -eq 0 ]; then
-                    [ -z "$silence_start" ] && silence_start=$now
+                    [ "$silence_start" -eq 0 ] && silence_start=$now
                     if [ $((now - silence_start)) -ge "$silence_limit" ]; then
-                        printf '{"text": "", "class": "silent"}\n'
                         hidden=1
-                        silence_start=""
+                        printf '{"text": "", "class": "silent"}\n'
+                    else
+                        printf '{"text": "%s", "class": "playing"}\n' "$bars"
                     fi
                 fi
                 ;;
         esac
-    done
-    ) 2>/dev/null
+    done ) 2>/dev/null
 
     printf '{"text": "", "class": "silent"}\n'
     sleep 1

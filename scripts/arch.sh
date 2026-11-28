@@ -250,7 +250,7 @@ info "Setting up printer support (optional)..."
 INSTALL_CUPS=false
 if confirm "Install printer support (CUPS + network discovery)?"; then
     INSTALL_CUPS=true
-    sudo pacman -S --needed --noconfirm cups cups-pdf avahi nss-mdns \
+    sudo pacman -S --needed --noconfirm cups cups-pdf cups-browsed avahi nss-mdns \
         gutenprint foomatic-db foomatic-db-ppds system-config-printer
 
     info "Configuring mDNS host resolution for network printer discovery..."
@@ -266,7 +266,11 @@ if confirm "Install printer support (CUPS + network discovery)?"; then
         ok "mDNS resolution already configured in /etc/nsswitch.conf."
     fi
 
-    sudo systemctl enable --now cups.service avahi-daemon.service
+    if [ -f /etc/cups/cups-browsed.conf ] && ! grep -q '^BrowseRemoteProtocols' /etc/cups/cups-browsed.conf; then
+        echo 'BrowseRemoteProtocols dnssd' | sudo tee -a /etc/cups/cups-browsed.conf >/dev/null
+    fi
+
+    sudo systemctl enable --now cups.service avahi-daemon.service cups-browsed.service
     sudo cupsctl WebInterface=yes
     ok "Printer support ready."
 fi
