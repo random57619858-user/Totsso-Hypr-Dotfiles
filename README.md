@@ -2,7 +2,8 @@
 
 # Totsso-Hypr-Dotfiles (v6.0)
 
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/5f750989-8207-475a-ac84-5e0a143a488f" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/7d549abc-9a15-4573-a289-d6222040f89c" />
+
 
 Un dotfile dinámico que se integra con **Hyprland**, Waybar, Kitty, Rofi, Mako y Matugen.
 Pensado para **Arch Linux y sus derivadas** (CachyOS, EndeavourOS…), con **systemd**.
