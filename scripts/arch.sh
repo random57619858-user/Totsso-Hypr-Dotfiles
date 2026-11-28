@@ -48,12 +48,18 @@ sudo pacman -S --needed --noconfirm \
     mako libnotify wl-clipboard grim slurp ffmpeg cliphist \
     playerctl brightnessctl \
     pipewire wireplumber pipewire-audio pipewire-pulse \
-    imagemagick python fastfetch gdm \
+    imagemagick python dconf gtk3 gtk4 fastfetch gdm \
     xdg-user-dirs git unzip base-devel wget curl \
     ttf-jetbrains-mono-nerd noto-fonts-emoji
 ok "Base packages installed."
 
 info "Installing AUR packages (wlogout)..."
+wlogout_key="F4FDB18A9937358364B276E9E25D679AF73C6D2F"
+for ks in hkps://keyserver.ubuntu.com hkps://pgp.mit.edu hkp://keyserver.ubuntu.com:80; do
+    gpg --keyserver "$ks" --keyserver-options timeout=10 --recv-keys "$wlogout_key" >/dev/null 2>&1 && break
+done
+gpg --list-keys "$wlogout_key" >/dev/null 2>&1 || \
+    warn "Could not import the wlogout signing key; the build may fail the PGP check."
 aur_install wlogout && ok "wlogout installed." || warn "Could not install wlogout."
 mkdir -p "$HOME/.local/bin"
 
@@ -273,4 +279,9 @@ if confirm "Install Flatpak + Flathub?"; then
 fi
 
 setup_all_dotfiles
+
+info "Restarting the desktop portal to apply the new configuration..."
+systemctl --user restart xdg-desktop-portal >/dev/null 2>&1 || pkill -x xdg-desktop-portal >/dev/null 2>&1 || true
+ok "Desktop portal reloaded."
+
 finish_install

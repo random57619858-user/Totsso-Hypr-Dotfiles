@@ -12,7 +12,7 @@ local scripts     = "$HOME/.config/hypr/scripts"
 local wallpaper   = "$HOME/.config/rofi/wallpaper.sh"
 
 hl.on("hyprland.start", function ()
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE XDG_SESSION_DESKTOP HYPRLAND_INSTANCE_SIGNATURE")
     hl.exec_cmd("waybar")
     hl.exec_cmd("mako")
     hl.exec_cmd("hyprpaper")
@@ -22,8 +22,10 @@ hl.on("hyprland.start", function ()
     hl.exec_cmd("sleep 2 && " .. wallpaper .. " restore")
 end)
 
-hl.env("HYPRCURSOR_THEME", "Fluent-dark-cursors")
+hl.env("HYPRCURSOR_THEME", "Adwaita")
 hl.env("HYPRCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "Adwaita")
+hl.env("XCURSOR_SIZE", "24")
 
 pcall(require, "colors")
 

@@ -257,10 +257,10 @@ max-visible=3
 anchor=top-center
 
 width=350
-margin=10
+margin=48
 padding=15
 border-size=2
-border-radius=12
+border-radius=6
 font=monospace 10
 format=<b>%s</b>\n%b
 
@@ -291,9 +291,6 @@ setup_all_dotfiles() {
         ok "Wallpapers copied to $IMG_DIR"
     fi
 
-    apply_default_wallpaper "$IMG_DIR"
-    ensure_mako_config
-
     step "Finalizing Permissions & Fixes"
     info "Applying executable permissions to scripts..."
     for d in hypr waybar rofi kitty; do
@@ -302,6 +299,9 @@ setup_all_dotfiles() {
         fi
     done
     find "$DOTFILES_DIR" -maxdepth 3 -type f -name "*.sh" -exec chmod +x {} + 2>/dev/null || true
+
+    apply_default_wallpaper "$IMG_DIR"
+    ensure_mako_config
 }
 
 finish_install() {

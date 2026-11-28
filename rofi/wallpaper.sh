@@ -101,9 +101,9 @@ detect_mode() {
     local luma=""
 
     if command -v magick >/dev/null 2>&1; then
-        luma=$(magick "$file" -colorspace Gray -resize '1x1!' -format '%[fx:mean]' info: 2>/dev/null)
+        luma=$(magick "$file" -background black -alpha remove -alpha off -colorspace Gray -resize '1x1!' -format '%[fx:mean]' info: 2>/dev/null)
     elif command -v convert >/dev/null 2>&1; then
-        luma=$(convert "$file" -colorspace Gray -resize '1x1!' -format '%[fx:mean]' info: 2>/dev/null)
+        luma=$(convert "$file" -background black -alpha remove -alpha off -colorspace Gray -resize '1x1!' -format '%[fx:mean]' info: 2>/dev/null)
     fi
 
     if [ -z "$luma" ]; then

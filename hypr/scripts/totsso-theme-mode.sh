@@ -7,6 +7,32 @@ GTK_LIGHT="Adwaita"
 ICON_DARK="Fluent-dark"
 ICON_LIGHT="Fluent-light"
 
+palette_mode() {
+    local f="$HOME/.config/waybar/colors.css" hex
+    [ -f "$f" ] || return 1
+    hex=$(sed -n 's/^@define-color bg[[:space:]]*#\([0-9a-fA-F]\{6\}\).*/\1/p' "$f" | head -n1)
+    [ -n "$hex" ] || return 1
+    python3 - "$hex" <<'PY'
+import sys
+
+hexv = sys.argv[1]
+r, g, b = (int(hexv[i:i + 2], 16) / 255 for i in (0, 2, 4))
+luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+print("light" if luma > 0.5 else "dark")
+PY
+}
+
+case "$mode" in
+    light|dark) ;;
+    *)
+        mode=$(palette_mode 2>/dev/null)
+        case "$mode" in
+            light|dark) ;;
+            *) mode="dark" ;;
+        esac
+        ;;
+esac
+
 case "$mode" in
     light)
         gtk_theme="$GTK_LIGHT"

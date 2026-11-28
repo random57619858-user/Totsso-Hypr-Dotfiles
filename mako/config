@@ -3,23 +3,13 @@ ignore-timeout=1
 max-visible=3
 anchor=top-center
 
-
 width=350
-margin=10
+margin=48
 padding=15
 border-size=2
-border-radius=0
+border-radius=6
 font=monospace 10
 format=<b>%s</b>\n%b
-
-
-background-color=#1e201a
-
-text-color=#e2e3d8
-
-border-color=#b8e970
-
-progress-color=over #a0d0cb
 
 [mode=do-not-disturb]
 invisible=1
