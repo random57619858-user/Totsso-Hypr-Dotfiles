@@ -122,7 +122,7 @@ cd Totsso-Hypr-Dotfiles
 
 Durante la instalación el script te preguntará qué aplicaciones opcionales quieres instalar (todas vía **trizen** desde AUR). Puedes elegir **0) Skip** para no instalar ninguna:
 
-- **Navegador:** `brave-bin`, `ungoogled-chromium`, `zen-browser-bin`
+- **Navegador:** `brave-bin`, `ungoogled-chromium`, `zen-browser-bin`, `Ladybird`
 - **Cliente de Discord:** `serein-bin`, `legcord-bin`, `dissent-bin`
 - **Música streaming:** `simpmusic-bin`, `limusic-bin`
 - **Suite de ofimática:** `onlyoffice-bin`, `openoffice-bin`
